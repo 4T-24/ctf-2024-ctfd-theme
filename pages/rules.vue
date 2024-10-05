@@ -16,9 +16,9 @@
 				<li> Each team is limited to a maximum of 4 members. </li>
 				<li> All members must register an account to be eligible for prizes. </li>
 				<li> Each participant can only be part of one team throughout the event. </li>
-				<li> Collaboration with other teams or external parties is strictly prohibited. </li>
-				<li> Teams must choose appropriate names. Offensive or inappropriate names are not allowed. </li>
-				<li> Teams will accumulate points as a group, and individual performance will not affect the team's overall score. </li>
+				<li> Collaboration with other teams or third parties is strictly prohibited. </li>
+				<li> Teams must choose appropriate names. Offensive or inappropriate names are not allowed, they will be renamed or deleted. </li>
+				<li> Teams will accumulate points as a group, individual performance will not affect the team's overall score. </li>
 			</ul>
 
 			<h1> Infrastructure </h1>
