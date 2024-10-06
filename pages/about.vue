@@ -43,7 +43,11 @@
 
 		<h3>Staffs</h3>
 		<a href="https://4ts.fr" target="_blank" rel="noopener noreferrer">
-			<img src="./logo.png">
+			<img
+				src="@/static/logo.png"
+				alt=""
+				width="250px"
+			/>		
 		</a>
 		<p>
 			4T$ CTF is organized by <a href="https://4ts.fr/" target="_blank" rel="noopener noreferrer">4T$</a>, a group of CTF enjoyers.
