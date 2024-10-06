@@ -356,6 +356,11 @@ export const actions = {
 		const { data, headers } = await $axios.get('/api/v1/users/me')
 		if (headers['content-type'] === 'application/json') {
 			commit('setUser', data.data)
+
+			const user = await $axios.get(`/api/v1/users/${data.data.id}`)
+			if (headers['content-type'] === 'application/json') {
+				commit('setIsAdmin', user.data.data.type == 'admin')
+			}
 		} else {
 			commit('setIsLoggedIn', false, { root: true })
 		}
