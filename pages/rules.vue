@@ -84,7 +84,7 @@
 			<h1>Communication</h1>
 			<ul>
 				<p>
-					Use the designated official communication platforms (Discord) for any
+					Use the designated official communication platforms (<a href="https://discord.gg/2AbXu9sD2G" target="_blank" rel="noopener noreferrer">Discord</a>) for any
 					announcements, queries, or issue reporting. Avoid using unofficial
 					channels for event-related discussions.
 				</p>
@@ -112,7 +112,7 @@ export default {
 	},
 	head() {
 		return {
-			title: 'Rules - TSG CTF',
+			title: 'Rules - 4T$ CTF',
 		}
 	},
 	computed: {
