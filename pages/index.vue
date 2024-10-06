@@ -16,7 +16,7 @@
 		<div class="sponsors_container">
 			<div class="">
 				<img
-					src="/logo_infomaniak_baseline_light-theme_vertical.png"
+					src="@/static/logo_infomaniak_baseline_light-theme_vertical.png"
 					alt=""
 					width="250px"
 				/>
@@ -32,7 +32,7 @@
 					:key="contributor.name"
 				>
 					<img
-						:src="contributor.icon"
+						src="@/static/dog.jpeg"
 						alt=""
 						width="80px"
 						class="contributor_image"
@@ -51,7 +51,7 @@
 					:key="contributor.name"
 				>
 					<img
-						:src="contributor.icon"
+						src="@/static/dog.jpeg"
 						alt=""
 						width="80px"
 						class="contributor_image"
