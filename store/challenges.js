@@ -202,7 +202,7 @@ export const actions = {
 	},
 	async createChallengeInstance({ commit }, { $axios, id }) {
 		const { data, headers, request } = await $axios.post(
-			`/api/v1/challenges/ /instance`,
+			`/api/v1/challenges/${id}/instance`,
 			{
 				headers: {
 					'content-type': 'application/json',
@@ -210,7 +210,6 @@ export const actions = {
 			},
 		)
 
-	
 		if (headers['content-type'] === 'application/json') {
 			commit('setSelectedChallengeInstance', { data: data.data })
 		} else {
@@ -230,7 +229,6 @@ export const actions = {
 			{ withCredentials: true },
 		)
 
-		
 		if (headers['content-type'] === 'application/json') {
 			commit('setSelectedChallengeInstance', { data: data.data })
 		} else {
