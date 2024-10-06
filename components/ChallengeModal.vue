@@ -281,13 +281,16 @@ export default {
 			this.isSolvesOpen = true
 		},
 		async createInstance() {
-			// await this.$store.dispatch('challenges/createChallengeInstance', {
-			// 	$axios: this.$axios,
-			// 	id: this.challenge.id,
-			// })
+			await this.$store.dispatch('challenges/createChallengeInstance', {
+				$axios: this.$axios,
+				id: this.challenge.id,
+			})
 		},
 		async stopInstance() {
-			// TODO: do the store function
+				await this.$store.dispatch('challenges/deleteChallengeInstance', {
+				$axios: this.$axios,
+				id: this.challenge.id,
+			})
 		},
 		getDescription() {
 			const descriptions = this.challenge.description.split(/^---$/m)

@@ -202,7 +202,7 @@ export const actions = {
 	},
 	async createChallengeInstance({ commit }, { $axios, id }) {
 		const { data, headers, request } = await $axios.post(
-			`/api/v1/challenges/${id}/instance`,
+			`/api/v1/challenges/ /instance`,
 			{
 				headers: {
 					'content-type': 'application/json',
@@ -210,7 +210,7 @@ export const actions = {
 			},
 		)
 
-		console.log(data)
+	
 		if (headers['content-type'] === 'application/json') {
 			commit('setSelectedChallengeInstance', { data: data.data })
 		} else {
@@ -224,10 +224,13 @@ export const actions = {
 			}
 		}
 	},
-	async getSelectedChallengeInstanceInfos({ commit }, { $axios, id, i_id }) {
-		const { data, headers, request } = await $axios.get(
-			`/api/v1/challenges/${id}/${i_id}`,
+	async deleteChallengeInstance({ commit }, { $axios, id }) {
+		const { data, headers, request } = await $axios.delete(
+			`/api/v1/challenges/${id}/instance`,
+			{ withCredentials: true },
 		)
+
+		
 		if (headers['content-type'] === 'application/json') {
 			commit('setSelectedChallengeInstance', { data: data.data })
 		} else {
