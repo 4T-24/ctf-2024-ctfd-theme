@@ -3,56 +3,52 @@
 		<h2 class="title"><span>About</span></h2>
 		<h3>Period</h3>
 		<p class="period">
-			<a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20231104T16&p1=248" target="_blank" rel="noopener noreferrer">11/04 07:00</a>
+			<a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20231104T16&p1=248" target="_blank" rel="noopener noreferrer"> 08/11 18:00 </a>
 			-
-			<a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20231105T16&p1=248" target="_blank" rel="noopener noreferrer">11/05 07:00</a>
+			<a href="https://www.timeanddate.com/worldclock/fixedtime.html?iso=20231105T16&p1=248" target="_blank" rel="noopener noreferrer"> 10/11 18:00 </a>
 		</p>
 		<p :style="{textAlign: 'center'}">(UTC)</p>
 		<h3>Socials</h3>
 		<ul class="socials">
 			<li>
 				<iframe
-					src="https://discord.com/widget?id=546339917459095552&theme=dark"
+					src="https://discord.com/widget?id=1261029732582162442&theme=dark" 
 					allowtransparency="true"
 					frameborder="0"
 					width="100%"
 					height="100%"
 				>
-					<a href="https://discord.gg/xcZ3t9bC2A" target="_blank" rel="noopener noreferrer">Discord</a>
+					<a href="https://discord.gg/2AbXu9sD2G" target="_blank" rel="noopener noreferrer">Discord</a>
 				</iframe>
-			</li>
-			<li>
-				<timeline
-					id="tsgctf"
-					source-type="profile"
-					:options="{tweetLimit: '3', theme: 'dark', height: '500'}"
-				>
-					<a href="https://twitter.com/tsgctf" target="_blank" rel="noopener noreferrer">Tweets from @tsgctf</a>
-				</timeline>
 			</li>
 		</ul>
 		<h3>Sponsor</h3>
-		<a href="https://flatt.tech/" target="_blank" rel="noopener noreferrer">
-			<img src="https://ctf.tsg.ne.jp/images/flatt_image.png" :style="{maxWidth: '60rem'}">
+		<a href="https://www.infomaniak.com/" target="_blank" rel="noopener noreferrer">
+			<img
+				src="@/static/logo_infomaniak_baseline_light-theme_vertical.png"
+				alt=""
+				width="250px"
+			/>
 		</a>
-		<p>Flatt Security Inc. is a cyber security startup based in Tokyo, Japan.</p>
-		<p>We provide a variety of cyber security services, including security assessment.  We also develop and provide security software “Shisho Cloud” for client companies.</p>
-		<p>We are hiring engineers. Please see our employment page <a href="https://recruit.flatt.tech/">https://recruit.flatt.tech/</a> and contact to <a href="https://flatt.tech/contact/">https://flatt.tech/contact/</a></p>
+		<p>Infomaniak is a Swiss-based company specializing in web hosting, cloud services, and domain registration.</p>
+		<p>Known for its focus on privacy, security, and sustainability, it offers solutions for websites, email, and drive.</p>
+		<p>Do not hesitate to take a look to their offers ! <a href="https://www.infomaniak.com/">https://www.infomaniak.com/</a> </p>
 		<h3>Prizes</h3>
 		<ul>
-			<li>1st: 1,000USD</li>
-			<li>2nd: 500 USD</li>
-			<li>3rd: 200 USD</li>
+			<li>1st: 1,000 CHF Infomaniak public cloud credits, 1 Infomaniak bag and 1 pen per person.</li>
+			<li>2nd: 1,000 CHF Infomaniak public cloud credits and 1 pen per person.</li>
+			<li>3rd: 500 CHF Infomaniak public cloud credits per person.</li>
+			<li>Others: 300 CHF Infomaniak public cloud credits per person with Infomaniak offer.</li>
 		</ul>
+
 		<h3>Staffs</h3>
-		<a href="https://tsg.ne.jp/" target="_blank" rel="noopener noreferrer">
-			<img src="https://old.tsg.ne.jp/images/tsg-logo.png">
+		<a href="https://4ts.fr" target="_blank" rel="noopener noreferrer">
+			<img src="./logo.png">
 		</a>
 		<p>
-			TSG CTF is organized by <a href="https://tsg.ne.jp/" target="_blank" rel="noopener noreferrer">TSG</a>, the official computer society of The
-			University of Tokyo.
+			4T$ CTF is organized by <a href="https://4ts.fr/" target="_blank" rel="noopener noreferrer">4T$</a>, a group of CTF enjoyers.
 		</p>
-		<p>Below is the full list of TSG members who contributed to this TSG CTF 2023 in success. So many thanks!!</p>
+		<p>Below is the full list of 4T$ members who contributed to this 4T$ CTF in success. So many thanks!!</p>
 		<ul class="members">
 			<li v-for="member in members" :key="member" class="member">
 				<a :href="member.url" target="_blank" rel="noopener noreferrer">{{ member.name }}</a>
@@ -71,30 +67,17 @@ export default {
 	components: {Timeline},
 	head() {
 		return {
-			title: 'About - TSG CTF',
+			title: 'About - 4T$ CTF',
 		};
 	},
 	data() {
 		return {
 			members: [
-				{ url: 'https://twitter.com/hakatashi', name: '@hakatashi' },
-				{ url: 'https://twitter.com/caphosra', name: '@caphosra' },
-				{ url: 'https://twitter.com/__dAi00', name: 'dai' },
-				{ url: 'https://twitter.com/iwashiira', name: '@iwashiira' },
-				{ url: 'https://twitter.com/jiei_univ', name: '@jiei_univ' },
-				{ url: 'https://twitter.com/JP3BGY', name: '@JP3BGY' },
-				{ url: 'https://twitter.com/khei4444', name: '@khei4444' },
-				{ url: 'https://twitter.com/m1kit', name: '@m1kit' },
-				{ url: 'https://twitter.com/moratorium08', name: '@moratorium08' },
-				{ url: 'https://twitter.com/naan112358', name: '@naan112358' },
-				{ url: 'https://twitter.com/n4o847', name: '@n4o847' },
-				{ url: 'https://twitter.com/platypus999', name: '@platypus999' },
-				{ url: 'https://twitter.com/sasakiy84', name: '@sasakiy84' },
-				{ url: 'https://twitter.com/satos___jp', name: '@satos' },
-				{ url: 'https://twitter.com/sitositositoo', name: 'settyan117' },
-				{ url: 'https://twitter.com/shell_mug', name: '@shell_mug' },
-				{ url: 'https://twitter.com/syobon_hinata', name: '@syobon_hinata (fabon)' },
-				{ url: 'https://twitter.com/shion_urei', name: '@shion_urei' },
+				{ url: 'https://yewolf.fr', name: 'Yewolf' },
+				{ url: 'https://github.com/Nounoursdestavernes', name: 'Nounours des tavernes' },
+				{ url: 'https://github.com/NathanCornelie', name: 'Nathan' },
+				{ url: 'https://github.com/thibault-cne', name: 'Thib' }, 
+				{ url: 'https://github.com/ElFamos0', name: 'Mada07' },
 			],
 		};
 	},
