@@ -56,14 +56,20 @@
 				<div class="description">
 					<div
 						ref="description"
-						:class="{ blured: true, 'description-column': true }"
+						:class="{
+							blured: challenge.type != 'standard',
+							'description-column': true,
+						}"
 						v-html="$md.render(getDescription())"
 					/>
 
-					<div :class="{ animation_background: !test, 'instance-btn': true }">
+					<div
+						v-if="challenge.type != 'standard'"
+						:class="{ animation_background: !test, 'instance-btn': true }"
+					>
 						<button
 							v-if="test"
-							@click="test = !test"
+							@click="createInstance()"
 							class="instance-btn"
 							style="background-color: green"
 						>
@@ -83,6 +89,7 @@
 						</button>
 					</div>
 				</div>
+
 				<div class="attachments">
 					<a
 						v-for="file in challenge.files"
@@ -95,11 +102,11 @@
 						{{ getFileName(file) }}
 					</a>
 				</div>
-				<!-- <div>
-					<button class="instance-btn" style="background-color: red">
-						<span>Stop Instance<PowerSettings style="margin-top: 4px" /></span>
+				<div v-if="challenge.type != 'standard'" class="">
+					<button class="quit_button" @click="stopInstance()">
+						<span>Stop Instance<PowerSettings /></span>
 					</button>
-				</div> -->
+				</div>
 			</div>
 
 			<div v-else class="description-loading">
@@ -118,12 +125,12 @@
 					:class="{ yay, boo }"
 					:readonly="yay"
 					:placeholder="getPlaceholderText(challenge)"
-					:disabled="challenge.solved_by_me || solved_by_team || isEnded"
+					:disabled="yay || challenge.solved_by_me || solved_by_team || isEnded"
 				/>
 				<button
 					type="submit"
 					class="flag-submit"
-					:disabled="yay || challenge.solved_by_me || isEnded"
+					:disabled="yay || challenge.solved_by_me || solved_by_team || isEnded"
 				>
 					Send
 				</button>
@@ -273,6 +280,15 @@ export default {
 			}
 			this.isSolvesOpen = true
 		},
+		async createInstance() {
+			// await this.$store.dispatch('challenges/createChallengeInstance', {
+			// 	$axios: this.$axios,
+			// 	id: this.challenge.id,
+			// })
+		},
+		async stopInstance() {
+			// TODO: do the store function
+		},
 		getDescription() {
 			const descriptions = this.challenge.description.split(/^---$/m)
 			if (descriptions.length >= 2 && this.language === 'ja') {
@@ -299,7 +315,7 @@ export default {
 			)
 			if (data.data.status === 'correct') {
 				this.yay = true
-				this.flagText = 'WELL PLAYED!'
+				this.flagText = 'Challenge Solved'
 				await this.$store.dispatch('challenges/updateChallenges', {
 					$axios: this.$axios,
 				})
@@ -397,7 +413,7 @@ export default {
 	line-height: 2rem;
 	padding: 0 0.5rem;
 	margin-top: 1rem;
-
+	border-radius: 1rem;
 	border-top-left-radius: 1rem;
 	border-top-right-radius: 1rem;
 	color: #fff;
@@ -662,7 +678,7 @@ export default {
 	& > button {
 		position: relative;
 		min-width: 150px;
-		padding: 10px 10px;
+		padding: 10px;
 		overflow: hidden;
 		flex: 0 0 150px;
 		background: gray;
@@ -690,7 +706,18 @@ export default {
 		animation: 1s slidein;
 	}
 }
-
+.quit_button {
+	background-color: red;
+	border-radius: 5px;
+	padding: 10px;
+	span {
+		display: flex;
+		align-items: center;
+		font-size: 1.2rem;
+		border-radius: 5px;
+		gap: 4px;
+	}
+}
 .metainfo {
 	display: flex;
 	flex-direction: column;

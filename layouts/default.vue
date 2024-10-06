@@ -55,7 +55,10 @@
 					</div>
 				</div>
 				<div v-else class="menu">
-					<div class="menu-item">
+					<div class="menu-item" v-if="isAdmin">
+						<iso-link to="/admin" class="dropdown-menu-item"
+							>Admin Panel</iso-link
+						>
 						<iso-link to="/notifications">Notifications</iso-link>
 					</div>
 					<div class="menu-item">
@@ -193,9 +196,17 @@ export default {
 		}
 	},
 	computed: {
-		...mapState(['isStatic', 'isLoggedIn', 'isInTeam', 'team', 'user']),
+		...mapState([
+			'isStatic',
+			'isLoggedIn',
+			'isInTeam',
+			'team',
+			'user',
+			'isAdmin',
+		]),
 	},
 	mounted() {
+		console.log(this.$config)
 		if (window.innerWidth <= 900) {
 			this.isMobile = true
 		}

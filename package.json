@@ -1,7 +1,7 @@
 {
   "name": "ctfd-theme-4t$ctf",
   "version": "1.0.0",
-  "description": "Custom CTFd theme made for TSG CTF",
+  "description": "Custom CTFd theme made for 4T$ CTF",
   "author": "Koki Takahashi",
   "private": true,
   "engines": {

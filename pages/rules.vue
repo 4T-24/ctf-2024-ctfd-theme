@@ -1,11 +1,11 @@
 <template>
 	<section class="Rules">
-		<h2 class="title"><span>Rules</span></h2>
-		<!-- eslint-disable vue/no-v-html -->
-		<div
+		<h2 class="title"><span>4T$ Rules</span></h2>
+
+		<!-- <div
 			class="description"
 			v-html="$md.render(rules)"
-		/>
+		/> -->
 		<div>
 			<p>Welcome to the rules page for our event !</p>
 
@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import {mapState} from 'vuex';
+import { mapState } from 'vuex'
 
 export default {
 	async asyncData(context) {
@@ -69,17 +69,19 @@ export default {
 	head() {
 		return {
 			title: 'Rules - TSG CTF',
-		};
+		}
 	},
 	computed: {
 		...mapState(['rules']),
 	},
-};
+}
 </script>
 
 <style lang="postcss">
 .Rules {
-	h1, h2, h3 {
+	h1,
+	h2,
+	h3 {
 		font-family: 'Fredoka One', cursive;
 		font-weight: 300;
 		text-align: center;
@@ -115,6 +117,14 @@ export default {
 		margin: 0 auto;
 		font-size: 1.4rem;
 		line-height: 2rem;
+	}
+	& > div {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		font-weight: 600;
+		text-align: center;
 	}
 }
 </style>

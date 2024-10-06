@@ -10,6 +10,7 @@ export const state = () => ({
 	isVerified: true,
 	isStatic: null,
 	isPushEnabled: true,
+	isAdmin: false,
 	user: {},
 	team: {},
 	rules: '',
@@ -320,6 +321,9 @@ export const mutations = {
 	},
 	setIsPushEnabled(s, payload) {
 		s.isPushEnabled = payload
+	},
+	setIsAdmin(s, payload) {
+		s.isAdmin = payload
 	},
 }
 

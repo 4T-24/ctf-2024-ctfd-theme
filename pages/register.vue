@@ -6,94 +6,77 @@
 			class="login-form"
 			accept-charset="utf-8"
 			autocomplete="off"
+			method="post"
 		>
 			<div class="form-group">
-				<label for="name-input">
-					User Name
-				</label>
-				<input
-					id="name-input"
-					class="form-control"
-					type="text"
-					name="name"
-				>
+				<label for="name-input"> User Name </label>
+				<input id="name-input" class="form-control" type="text" name="name" />
 			</div>
 			<div class="form-group">
-				<label for="email-input">
-					Email
-				</label>
+				<label for="email-input"> Email </label>
 				<input
 					id="email-input"
 					class="form-control"
 					type="email"
 					name="email"
-				>
+				/>
 			</div>
 			<div class="form-group">
-				<label for="password-input">
-					Password
-				</label>
+				<label for="password-input"> Password </label>
 				<input
 					id="password-input"
 					class="form-control"
 					type="password"
 					name="password"
-				>
+				/>
 			</div>
 			<div>
-				Individual registration is recommended. You can create team account later.
+				Individual registration is recommended. You can create team account
+				later.
+			</div>
+			<div>
+				<button id="submit" type="submit" tabindex="5">Submit</button>
 			</div>
 			<div v-if="isError" class="error">
 				Registration errored. Maybe username already taken?
 			</div>
-			
-			<input type="hidden" name="nonce" :value="csrfToken">
+
+			<input type="hidden" name="nonce" :value="csrfToken" />
 		</form>
-	<div>
-				<button id="submit" @click="handleRegisterButton()"  tabindex="5">
-					Submit
-				</button>
-				
-			</div>
 	</section>
 </template>
 
 <script>
-import IsoLink from '~/components/IsoLink.vue';
-import {mapState} from 'vuex';
+import IsoLink from '~/components/IsoLink.vue'
+import { mapState } from 'vuex'
 
 export default {
-	components: {IsoLink},
+	components: { IsoLink },
 	async asyncData(context) {
-		await context.store.dispatch('updateCsrfToken', context);
+		await context.store.dispatch('updateCsrfToken', context)
 	},
 	data() {
 		return {
 			isError: false,
-		};
+		}
 	},
 	head() {
 		return {
-			title: 'Register - TSG CTF',
-		};
+			title: 'Register - 4T$ CTF',
+		}
 	},
 	computed: {
 		...mapState(['isLoggedIn', 'csrfToken']),
 	},
 	mounted() {
 		if (document.referrer) {
-			const referrer = new URL(document.referrer);
+			const referrer = new URL(document.referrer)
 			if (referrer.pathname === '/register') {
-				this.isError = true;
+				this.isError = true
 			}
 		}
 	},
-	methods: {
-		handleRegisterButton() {
-			console.log('hey');
-		},
-	},
-};
+}
 </script>
 
 <style lang="postcss">

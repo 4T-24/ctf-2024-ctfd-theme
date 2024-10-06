@@ -64,7 +64,7 @@ export default {
 	},
 	head() {
 		return {
-			title: 'Login - TSG CTF',
+			title: 'Login - 4T$ CTF',
 		};
 	},
 	computed: {

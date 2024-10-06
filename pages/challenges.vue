@@ -80,7 +80,7 @@ export default {
 		return {
 			melody: 0,
 			isHideSolved: false,
-			isChallengeModalOpen: true,
+			isChallengeModalOpen: false,
 			categoriesFilter: [],
 			filteredCategories: [],
 			isSelectedChallengeSolved: false,
@@ -115,8 +115,6 @@ export default {
 		},
 	},
 	async mounted() {
-		this.openModal(1, false)
-
 		if (!this.isStatic && !this.isVerified) {
 			await this.$router.replace({
 				path: '/confirm',
@@ -185,7 +183,7 @@ export default {
 <style lang="postcss" scoped>
 .challenges {
 	max-width: 1200px;
-	margin: 0 auto;
+	margin: 15px auto;
 	min-height: 100vh;
 
 	.title {

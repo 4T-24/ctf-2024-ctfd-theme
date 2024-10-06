@@ -1,15 +1,19 @@
-import axios from 'axios';
-import {createProxyMiddleware} from 'http-proxy-middleware';
+import axios from 'axios'
+import { createProxyMiddleware } from 'http-proxy-middleware'
 
 const proxy = createProxyMiddleware({
 	target: 'http://localhost:8000',
-});
+})
 
-const isStatic = process.env.NUXT_ENV_STATIC === 'true';
+const isStatic = process.env.NUXT_ENV_STATIC === 'true'
 
-const staticBase = (process.env.NODE_ENV === 'development' || isStatic) ? '' : '/themes/4t$ctf/static';
+const staticBase =
+	process.env.NODE_ENV === 'development' || isStatic
+		? ''
+		: '/themes/4t$ctf/static'
 
 export default {
+	proxy: proxy,
 	ssr: isStatic,
 
 	target: 'static',
@@ -69,7 +73,6 @@ export default {
 		'@nuxtjs/markdownit',
 		'@nuxtjs/pwa',
 		...(isStatic ? [] : ['@nuxtjs/onesignal']),
-
 	],
 
 	generate: {
@@ -149,6 +152,10 @@ export default {
 						handler: proxy,
 					},
 					{
+						path: '/admin',
+						handler: proxy,
+					},
+					{
 						path: '/register',
 						handler: proxy,
 					},
@@ -160,6 +167,7 @@ export default {
 						path: '/teams/new',
 						handler: proxy,
 					},
+					
 				]
 			: []),
 	],

@@ -15,10 +15,12 @@ const categoryOrders = [
 export const state = () => ({
 	challenges: [],
 	selectedChallenge: null,
+	selectedChallengeInstance: null,
 })
 
 export const getters = {
 	getChallenges: (s) => s.challenges,
+	getInstance: (s) => s.selectedChallengeInstance,
 	getCategories: (s, g) =>
 		Object.entries(groupBy(g.getChallenges, ({ category }) => category))
 			.map(([name, challenges]) => ({
@@ -68,6 +70,9 @@ export const mutations = {
 	},
 	setSelectedChallengeSolvesInfos(s, infos) {
 		s.selectedChallenge.solveInfos = infos.data
+	},
+	setSelectedChallengeInstance(s, instance) {
+		s.selectedChallengeInstance = instance
 	},
 }
 
@@ -167,6 +172,64 @@ export const actions = {
 		)
 		if (headers['content-type'] === 'application/json') {
 			commit('setSelectedChallengeSolvesInfos', { data: data.data })
+		} else {
+			const url = new URL(request.responseURL)
+			if (url.pathname === '/team') {
+				commit('setIsInTeam', false, { root: true })
+			} else if (url.pathname === '/confirm') {
+				commit('setIsVerified', false, { root: true })
+			} else {
+				commit('setIsLoggedIn', false, { root: true })
+			}
+		}
+	},
+	async getSelectedChallengeInstanceInfos({ commit }, { $axios, id, i_id }) {
+		const { data, headers, request } = await $axios.get(
+			`/api/v1/challenges/${id}/instance`,
+		)
+		if (headers['content-type'] === 'application/json') {
+			commit('setSelectedChallengeInstance', { data: data.data })
+		} else {
+			const url = new URL(request.responseURL)
+			if (url.pathname === '/team') {
+				commit('setIsInTeam', false, { root: true })
+			} else if (url.pathname === '/confirm') {
+				commit('setIsVerified', false, { root: true })
+			} else {
+				commit('setIsLoggedIn', false, { root: true })
+			}
+		}
+	},
+	async createChallengeInstance({ commit }, { $axios, id }) {
+		const { data, headers, request } = await $axios.post(
+			`/api/v1/challenges/${id}/instance`,
+			{
+				headers: {
+					'content-type': 'application/json',
+				},
+			},
+		)
+
+		console.log(data)
+		if (headers['content-type'] === 'application/json') {
+			commit('setSelectedChallengeInstance', { data: data.data })
+		} else {
+			const url = new URL(request.responseURL)
+			if (url.pathname === '/team') {
+				commit('setIsInTeam', false, { root: true })
+			} else if (url.pathname === '/confirm') {
+				commit('setIsVerified', false, { root: true })
+			} else {
+				commit('setIsLoggedIn', false, { root: true })
+			}
+		}
+	},
+	async getSelectedChallengeInstanceInfos({ commit }, { $axios, id, i_id }) {
+		const { data, headers, request } = await $axios.get(
+			`/api/v1/challenges/${id}/${i_id}`,
+		)
+		if (headers['content-type'] === 'application/json') {
+			commit('setSelectedChallengeInstance', { data: data.data })
 		} else {
 			const url = new URL(request.responseURL)
 			if (url.pathname === '/team') {
