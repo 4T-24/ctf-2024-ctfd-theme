@@ -1,7 +1,7 @@
 <template>
 	<section class="Notifications">
 		<h2 class="title"><span>Notifications</span></h2>
-		<div class="lang-switcher">
+		<!-- <div class="lang-switcher">
 			<span class="lang" :class="{active: language === 'ja'}" @click="$store.commit('setLanguage', 'ja')">
 				<img src="https://hatscripts.github.io/circle-flags/flags/jp.svg" width="15">
 				<span class="lang-name">JA</span>
@@ -10,14 +10,18 @@
 				<img src="https://hatscripts.github.io/circle-flags/flags/gb.svg" width="15">
 				<span class="lang-name">EN</span>
 			</span>
-		</div>
-		<div v-for="notification, i in notifications" :key="notification.id" class="notification">
-			<hr v-if="i !== 0">
-			<div class="title">{{notification.title}}</div>
+		</div> -->
+		<div
+			v-for="(notification, i) in notifications"
+			:key="notification.id"
+			class="notification"
+		>
+			<hr v-if="i !== 0" />
+			<div class="title">{{ notification.title }}</div>
 			<div class="date">
-				<iso-timeago :datetime="notification.date" :auto-update="60"/>
+				<iso-timeago :datetime="notification.date" :auto-update="60" />
 			</div>
-			<div class="content">{{getContent(notification)}}</div>
+			<div class="content">{{ getContent(notification) }}</div>
 		</div>
 		<div v-if="notifications.length === 0" class="no-notification">
 			No notifications yet!
@@ -26,19 +30,19 @@
 </template>
 
 <script>
-import IsoTimeago from '~/components/IsoTimeago.vue';
-import {mapGetters, mapState} from 'vuex';
-import BellRing from 'vue-material-design-icons/BellRing.vue';
+import IsoTimeago from '~/components/IsoTimeago.vue'
+import { mapGetters, mapState } from 'vuex'
+import BellRing from 'vue-material-design-icons/BellRing.vue'
 
 export default {
-	components: {IsoTimeago, BellRing},
+	components: { IsoTimeago, BellRing },
 	async asyncData(context) {
-		await context.store.dispatch('notifications/updateNotifications', context);
+		await context.store.dispatch('notifications/updateNotifications', context)
 	},
 	head() {
 		return {
 			title: 'Notifications - TSG CTF',
-		};
+		}
 	},
 	computed: {
 		...mapGetters({
@@ -48,18 +52,18 @@ export default {
 	},
 	methods: {
 		getContent(notification) {
-			const sections = notification.content.split(/^---$/m);
+			const sections = notification.content.split(/^---$/m)
 			if (sections.length < 2 || this.language !== 'ja') {
-				return sections[0].trim();
+				return sections[0].trim()
 			}
-			return sections[1].trim();
+			return sections[1].trim()
 		},
 		async enableNotifications() {
-			await this.$OneSignal.showNativePrompt();
-			this.$store.commit('setIsPushEnabled', true);
+			await this.$OneSignal.showNativePrompt()
+			this.$store.commit('setIsPushEnabled', true)
 		},
 	},
-};
+}
 </script>
 
 <style lang="postcss">
@@ -78,7 +82,8 @@ export default {
 			}
 		}
 
-		img, .lang-name {
+		img,
+		.lang-name {
 			vertical-align: middle;
 		}
 	}

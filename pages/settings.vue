@@ -1,9 +1,7 @@
 <template>
 	<section class="Settings">
 		<h2 class="title"><span>Settings</span></h2>
-		<div class="subtitle">
-			User settings
-		</div>
+		<div class="subtitle">User settings</div>
 		<form
 			id="user-settings-form"
 			method="post"
@@ -13,90 +11,80 @@
 			@submit="onSubmitUser"
 		>
 			<div class="form-group">
-				<label for="user-name-input">
-					User Name
-				</label>
+				<label for="user-name-input"> User Name </label>
 				<input
 					id="user-name-input"
 					v-model="userForm.name"
 					class="form-control"
 					type="text"
 					name="name"
-				>
+				/>
 			</div>
 			<div class="form-group">
-				<label for="user-email-input">
-					Email
-				</label>
+				<label for="user-email-input"> Email </label>
 				<input
 					id="user-email-input"
 					v-model="userForm.email"
 					class="form-control"
 					type="email"
 					name="email"
-				>
+				/>
 			</div>
 			<div class="form-group">
-				<label for="user-confirm-input">
-					Current Password
-				</label>
+				<label for="user-confirm-input"> Current Password </label>
 				<input
 					id="user-confirm-input"
 					v-model="userForm.confirm"
 					class="form-control"
 					type="password"
 					name="confirm"
-				>
+				/>
 			</div>
 			<div class="form-group">
-				<label for="user-password-input">
-					New Password
-				</label>
+				<label for="user-password-input"> New Password </label>
 				<input
 					id="user-password-input"
 					v-model="userForm.password"
 					class="form-control"
 					type="password"
 					name="password"
-				>
+				/>
 			</div>
 			<div class="form-group">
-				<label for="user-affiliation-input">
-					Affiliation
-				</label>
+				<label for="user-affiliation-input"> Affiliation </label>
 				<input
 					id="user-affiliation-input"
 					v-model="userForm.affiliation"
 					class="form-control"
 					type="text"
 					name="affiliation"
-				>
+				/>
 			</div>
 			<div class="form-group">
-				<label for="user-website-input">
-					Website
-				</label>
+				<label for="user-website-input"> Website </label>
 				<input
 					id="user-website-input"
 					v-model="userForm.website"
 					class="form-control"
 					type="url"
 					name="website"
-				>
+				/>
 			</div>
 			<div class="form-group">
-				<label for="user-country-input">
-					Country
-				</label>
+				<label for="user-country-input"> Country </label>
 				<select
 					id="user-country-input"
 					v-model="userForm.country"
 					class="form-control"
 					name="country"
 				>
-					<option value=""/>
-					<option v-for="[code, countryName] in countries" :key="code" :value="code">
-						{{countryName}}
+					<option value="" />
+					<option
+						v-for="[code, countryName] in countries"
+						:key="code"
+						:value="code"
+					>
+						{{ countryName }}
 					</option>
 				</select>
 			</div>
@@ -110,7 +98,7 @@
 				>
 					Submit
 				</button>
-				<pulse-loader v-else color="white"/>
+				<pulse-loader v-else color="white" />
 			</div>
 
 			<div class="result">
@@ -119,15 +107,13 @@
 				</span>
 				<ul v-if="userForm.errors.length > 0" class="errors">
 					<li v-for="error in userForm.errors" :key="error">
-						{{error}}
+						{{ error }}
 					</li>
 				</ul>
 			</div>
 		</form>
 
-		<div v-if="isInTeam" class="subtitle">
-			Team settings
-		</div>
+		<div v-if="isInTeam" class="subtitle">Team settings</div>
 
 		<form
 			v-if="isInTeam"
@@ -139,78 +125,70 @@
 			@submit="onSubmitTeam"
 		>
 			<div class="form-group">
-				<label for="team-name-input">
-					Team Name
-				</label>
+				<label for="team-name-input"> Team Name </label>
 				<input
 					id="team-name-input"
 					v-model="teamForm.name"
 					class="form-control"
 					type="text"
 					name="name"
-				>
+				/>
 			</div>
 			<div class="form-group">
-				<label for="team-confirm-input">
-					Current Password
-				</label>
+				<label for="team-confirm-input"> Current Password </label>
 				<input
 					id="team-confirm-input"
 					v-model="teamForm.confirm"
 					class="form-control"
 					type="password"
 					name="confirm"
-				>
+				/>
 			</div>
 			<div class="form-group">
-				<label for="team-password-input">
-					New Password
-				</label>
+				<label for="team-password-input"> New Password </label>
 				<input
 					id="team-password-input"
 					v-model="teamForm.password"
 					class="form-control"
 					type="password"
 					name="password"
-				>
+				/>
 			</div>
 			<div class="form-group">
-				<label for="team-affiliation-input">
-					Affiliation
-				</label>
+				<label for="team-affiliation-input"> Affiliation </label>
 				<input
 					id="team-affiliation-input"
 					v-model="teamForm.affiliation"
 					class="form-control"
 					type="text"
 					name="affiliation"
-				>
+				/>
 			</div>
 			<div class="form-group">
-				<label for="team-website-input">
-					Website
-				</label>
+				<label for="team-website-input"> Website </label>
 				<input
 					id="team-website-input"
 					v-model="teamForm.website"
 					class="form-control"
 					type="url"
 					name="website"
-				>
+				/>
 			</div>
 			<div class="form-group">
-				<label for="team-country-input">
-					Country
-				</label>
+				<label for="team-country-input"> Country </label>
 				<select
 					id="team-country-input"
 					v-model="teamForm.country"
 					class="form-control"
 					name="country"
 				>
-					<option value=""/>
-					<option v-for="[code, countryName] in countries" :key="code" :value="code">
-						{{countryName}}
+					<option value="" />
+					<option
+						v-for="[code, countryName] in countries"
+						:key="code"
+						:value="code"
+					>
+						{{ countryName }}
 					</option>
 				</select>
 			</div>
@@ -224,7 +202,7 @@
 				>
 					Submit
 				</button>
-				<pulse-loader v-else color="white"/>
+				<pulse-loader v-else color="white" />
 			</div>
 
 			<div class="result">
@@ -233,7 +211,7 @@
 				</span>
 				<ul v-if="teamForm.errors.length > 0" class="errors">
 					<li v-for="error in teamForm.errors" :key="error">
-						{{error}}
+						{{ error }}
 					</li>
 				</ul>
 			</div>
@@ -242,14 +220,14 @@
 </template>
 
 <script>
-import PulseLoader from 'vue-spinner/src/PulseLoader.vue';
-import flatten from 'lodash/flatten';
-import {mapState} from 'vuex';
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
+import flatten from 'lodash/flatten'
+import { mapState } from 'vuex'
 
 export default {
-	components: {PulseLoader},
+	components: { PulseLoader },
 	async asyncData(context) {
-		await context.store.dispatch('updateCsrfToken', context);
+		await context.store.dispatch('updateCsrfToken', context)
 	},
 	data() {
 		return {
@@ -276,84 +254,99 @@ export default {
 				isSubmitting: false,
 				errors: [],
 			},
-		};
+		}
 	},
 	head() {
 		return {
 			title: 'Settings - TSG CTF',
-		};
+		}
 	},
 	computed: {
-		...mapState(['isLoggedIn', 'isInTeam', 'csrfToken', 'user', 'team', 'countries']),
+		...mapState([
+			'isLoggedIn',
+			'isInTeam',
+			'csrfToken',
+			'user',
+			'team',
+			'countries',
+		]),
 	},
 	watch: {
 		user(newValue) {
-			Object.assign(this.userForm, newValue);
+			Object.assign(this.userForm, newValue)
 		},
 		team(newValue) {
-			Object.assign(this.teamForm, newValue);
+			Object.assign(this.teamForm, newValue)
 		},
 	},
 	mounted() {
 		if (!this.isLoggedIn) {
 			this.$router.replace({
 				path: '/login',
-			});
-			return;
+			})
+			return
 		}
 
-		Object.assign(this.userForm, this.user);
-		Object.assign(this.teamForm, this.team);
+		Object.assign(this.userForm, this.user)
+		Object.assign(this.teamForm, this.team)
 	},
 	methods: {
 		async onSubmitUser(event) {
-			event.preventDefault();
-			const form = new FormData(event.target);
+			event.preventDefault()
+			const form = new FormData(event.target)
 
-			this.userForm.isSubmitting = true;
-			this.userForm.isSuccess = false;
-			this.userForm.errors = [];
+			this.userForm.isSubmitting = true
+			this.userForm.isSuccess = false
+			this.userForm.errors = []
 
-			const {data} = await this.$axios.patch('/api/v1/users/me', Object.fromEntries(form), {
-				headers: {
-					'content-type': 'application/json',
+			const { data } = await this.$axios.patch(
+				'/api/v1/users/me',
+				Object.fromEntries(form),
+				{
+					headers: {
+						'content-type': 'application/json',
+					},
+					validateStatus: null,
 				},
-				validateStatus: null,
-			});
-			this.userForm.isSubmitting = false;
+			)
+			this.userForm.isSubmitting = false
 
 			if (data.success) {
-				this.userForm.isSuccess = true;
-				await this.$store.dispatch('updateUser', {$axios: this.$axios});
+				this.userForm.isSuccess = true
+				await this.$store.dispatch('updateUser', { $axios: this.$axios })
 			} else {
-				this.userForm.errors = flatten(Object.values(data.errors));
+				this.userForm.errors = flatten(Object.values(data.errors))
 			}
 		},
 		async onSubmitTeam(event) {
-			event.preventDefault();
-			const form = new FormData(event.target);
+			event.preventDefault()
+			const form = new FormData(event.target)
 
-			this.teamForm.isSubmitting = true;
-			this.teamForm.isSuccess = false;
-			this.teamForm.errors = [];
+			this.teamForm.isSubmitting = true
+			this.teamForm.isSuccess = false
+			this.teamForm.errors = []
 
-			const {data} = await this.$axios.patch('/api/v1/teams/me', Object.fromEntries(form), {
-				headers: {
-					'content-type': 'application/json',
+			const { data } = await this.$axios.patch(
+				'/api/v1/teams/me',
+				Object.fromEntries(form),
+				{
+					headers: {
+						'content-type': 'application/json',
+					},
+					validateStatus: null,
 				},
-				validateStatus: null,
-			});
-			this.teamForm.isSubmitting = false;
+			)
+			this.teamForm.isSubmitting = false
 
 			if (data.success) {
-				this.teamForm.isSuccess = true;
-				await this.$store.dispatch('updateTeam', {$axios: this.$axios});
+				this.teamForm.isSuccess = true
+				await this.$store.dispatch('updateTeam', { $axios: this.$axios })
 			} else {
-				this.teamForm.errors = flatten(Object.values(data.errors));
+				this.teamForm.errors = flatten(Object.values(data.errors))
 			}
 		},
 	},
-};
+}
 </script>
 
 <style lang="postcss">
@@ -402,6 +395,14 @@ export default {
 		font-size: 1.2rem;
 		max-width: 20rem;
 	}
+	.form-control {
+		font-size: 1.2rem;
+		width: 20rem;
+		background-color: rgba(29, 29, 29, 0.753);
+		border-radius: 5px;
+		color: white;
+		box-shadow: 0 0 5px 0 rgba(255, 255, 255, 0.952);
+	}
 
 	.result {
 		font-size: 1.5rem;
@@ -422,6 +423,30 @@ export default {
 	button[type='submit'] {
 		width: 10rem;
 		margin: 1rem 0;
+		box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.952);
+	}
+
+	button[type='submit']:hover {
+		background-color: white;
+		color: rgb(29, 29, 29);
+	}
+
+	button {
+		border: 0;
+		color: inherit;
+		cursor: pointer;
+	}
+
+	button,
+	.button-style {
+		padding: 5px;
+		width: 6rem;
+		height: 2.5rem;
+		border-radius: 9999px;
+		font-size: 1.5rem;
+		font-family: 'Fredoka One', cursive;
+		font-weight: 300;
+		background: rgba(29, 29, 29, 0.753);
 	}
 }
 </style>

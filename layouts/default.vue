@@ -206,7 +206,7 @@ export default {
 		]),
 	},
 	mounted() {
-		console.log(this.$config)
+		
 		if (window.innerWidth <= 900) {
 			this.isMobile = true
 		}
