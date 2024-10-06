@@ -24,21 +24,29 @@
 		</ul>
 		<h3>Sponsor</h3>
 		<a href="https://www.infomaniak.com/" target="_blank" rel="noopener noreferrer">
-			<img src="./infomaniak.png">
+			<img
+				src="@/static/logo_infomaniak_baseline_light-theme_vertical.png"
+				alt=""
+				width="250px"
+			/>
 		</a>
 		<p>Infomaniak is a Swiss-based company specializing in web hosting, cloud services, and domain registration.</p>
 		<p>Known for its focus on privacy, security, and sustainability, it offers solutions for websites, email, and drive.</p>
 		<p>Do not hesitate to take a look to their offers ! <a href="https://www.infomaniak.com/">https://www.infomaniak.com/</a> </p>
 		<h3>Prizes</h3>
-
-		<p>TBD</p>
+		<ul>
+			<li>1st: 1,000 CHF Infomaniak public cloud credits, 1 Infomaniak bag and 1 pen per person.</li>
+			<li>2nd: 1,000 CHF Infomaniak public cloud credits and 1 pen per person.</li>
+			<li>3rd: 500 CHF Infomaniak public cloud credits per person.</li>
+			<li>Others: 300 CHF Infomaniak public cloud credits per person with Infomaniak offer.</li>
+		</ul>
 
 		<h3>Staffs</h3>
 		<a href="https://4ts.fr" target="_blank" rel="noopener noreferrer">
 			<img src="./logo.png">
 		</a>
 		<p>
-			TSG CTF is organized by <a href="https://4ts.fr/" target="_blank" rel="noopener noreferrer">4T$</a>, a group of CTF enjoyers.
+			4T$ CTF is organized by <a href="https://4ts.fr/" target="_blank" rel="noopener noreferrer">4T$</a>, a group of CTF enjoyers.
 		</p>
 		<p>Below is the full list of 4T$ members who contributed to this 4T$ CTF in success. So many thanks!!</p>
 		<ul class="members">
@@ -59,7 +67,7 @@ export default {
 	components: {Timeline},
 	head() {
 		return {
-			title: 'About - TSG CTF',
+			title: 'About - 4T$ CTF',
 		};
 	},
 	data() {
@@ -67,9 +75,9 @@ export default {
 			members: [
 				{ url: 'https://yewolf.fr', name: 'Yewolf' },
 				{ url: 'https://github.com/Nounoursdestavernes', name: 'Nounours des tavernes' },
-				{ url: 'https://example.com/', name: 'Nathan' },
-				{ url: 'https://example.com/', name: 'Thib' }, 
-				{ url: 'https://example.com/', name: 'Mada07' },
+				{ url: 'https://github.com/NathanCornelie', name: 'Nathan' },
+				{ url: 'https://github.com/thibault-cne', name: 'Thib' }, 
+				{ url: 'https://github.com/ElFamos0', name: 'Mada07' },
 			],
 		};
 	},
