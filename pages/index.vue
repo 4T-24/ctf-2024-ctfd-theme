@@ -14,14 +14,13 @@
 			</div>
 		</div>
 		<div class="sponsors_container">
-			<div class="">
-				<img
-					src="@/static/logo_infomaniak_baseline_light-theme_vertical.png"
-					alt=""
-					width="250px"
-				/>
-				<!-- <img src="@/static/google-cloud.png" alt="" width="250px" /> -->
-			</div>
+			<p>Sponsored by :</p>
+			<img
+				src="@/static/logo_infomaniak_baseline_light-theme_vertical.png"
+				alt=""
+				width="250px"
+			/>
+			<!-- <img src="@/static/google-cloud.png" alt="" width="250px" /> -->
 		</div>
 		<!-- Section Team -->
 		<div class="contributors_container">
@@ -368,7 +367,13 @@ export default {
 	}
 }
 .sponsors_container {
+	& > p {
+		font-weight: bolder;
+		font-size: larger;
+		margin-bottom: 15px;
+	}
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	margin-bottom: 5rem;
