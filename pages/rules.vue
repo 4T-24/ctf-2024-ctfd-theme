@@ -83,7 +83,7 @@
 
 			<h1>Communication</h1>
 			<ul>
-				<p>
+				<p style="display: block">
 					Use the designated official communication platforms (<a href="https://discord.gg/2AbXu9sD2G" target="_blank" rel="noopener noreferrer">Discord</a>) for any
 					announcements, queries, or issue reporting. Avoid using unofficial
 					channels for event-related discussions.
