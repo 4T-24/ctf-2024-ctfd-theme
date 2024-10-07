@@ -47,8 +47,8 @@
 
 			<h1>Flag</h1>
 			<ul>
-				<p>
-					Flags will follow the following format : 4T${} (e.g., 4T${example}).
+				<p style="display: block">
+					Flags will follow the following format : <code>4T${}</code> (e.g., <code>4T${example}</code>).
 					Only flags in the correct format will be accepted.
 				</p>
 				<p>
