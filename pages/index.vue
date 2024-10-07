@@ -22,6 +22,7 @@
 			/>
 			<!-- <img src="@/static/google-cloud.png" alt="" width="250px" /> -->
 		</div>
+
 		<!-- Section Team -->
 		<div class="contributors_container">
 			<p>LA TEAM</p>
@@ -286,7 +287,7 @@ export default {
 
 .Index {
 	margin: 0 auto;
-	height: calc(100vh - 10rem);
+	height: calc(100vh - 12rem);
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -344,7 +345,7 @@ export default {
 		width: 10rem;
 		height: 2.6rem;
 		line-height: 2.6rem;
-		border-radius: 9999px;
+		border-radius: 8px;
 		font-size: 1.5rem;
 		font-family: 'Fredoka One', cursive;
 		font-weight: 300;

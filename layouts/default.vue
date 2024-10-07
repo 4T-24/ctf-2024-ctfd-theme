@@ -13,7 +13,7 @@
 								{{ team && team.name }}
 							</div>
 						</div>
-						<div 
+						<div
 							v-if="isDropping"
 							class="dropdown-menu"
 							@click="onClickDropdown"
@@ -56,9 +56,7 @@
 				</div>
 				<div v-else class="menu">
 					<div class="menu-item" v-if="isAdmin">
-						<iso-link to="/admin" class="dropdown-menu-item"
-							>Admin Panel</iso-link
-						>
+						<iso-link to="/admin" class="menu-item">Admin Panel</iso-link>
 						<iso-link to="/notifications">Notifications</iso-link>
 					</div>
 					<div class="menu-item">
@@ -67,10 +65,10 @@
 					<div class="menu-item">
 						<iso-link to="/rules">Rules</iso-link>
 					</div>
-					<div class="menu-item">
+					<div class="menu-item" v-if="isStarted">
 						<iso-link to="/scoreboard">Scoreboard</iso-link>
 					</div>
-					<div class="menu-item">
+					<div class="menu-item" v-if="isStarted">
 						<iso-link to="/challenges">Challenges</iso-link>
 					</div>
 					<div
@@ -134,7 +132,7 @@
 						<iso-link to="/rules">Rules</iso-link>
 					</div>
 					<div class="menu-item">
-						<iso-link to="/scoreboard">Scoreboard</iso-link>
+						<iso-link to="/scoreboard" v-if="isStarted">Scoreboard</iso-link>
 					</div>
 					<div class="menu-item">
 						<iso-link to="/login">Login</iso-link>
@@ -183,9 +181,13 @@ export default {
 			'team',
 			'user',
 			'isAdmin',
+			'isStarted',
 		]),
 	},
-	mounted() {
+	async beforeMount() {
+		await this.$store.dispatch('getDates', { $axios: this.$axios })
+	},
+	async mounted() {
 		if (window.innerWidth <= 900) {
 			this.isMobile = true
 		}
@@ -279,7 +281,7 @@ input[type='url'],
 select {
 	border: 0;
 	outline: 0;
-	border-radius: 9999px;
+	border-radius: 8px;
 	padding: 0 1rem;
 	font-family: 'Roboto', sans-serif;
 	font-size: 1.4rem;
@@ -330,7 +332,7 @@ button[id='submit'],
 .button-style {
 	width: 6rem;
 	height: 2.5rem;
-	border-radius: 9999px;
+	border-radius: 8px;
 	font-size: 1.5rem;
 	font-family: 'Fredoka One', cursive;
 	font-weight: 300;

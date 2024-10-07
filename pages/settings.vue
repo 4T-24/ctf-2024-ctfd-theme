@@ -442,7 +442,7 @@ export default {
 		padding: 5px;
 		width: 6rem;
 		height: 2.5rem;
-		border-radius: 9999px;
+		border-radius: 8px;
 		font-size: 1.5rem;
 		font-family: 'Fredoka One', cursive;
 		font-weight: 300;

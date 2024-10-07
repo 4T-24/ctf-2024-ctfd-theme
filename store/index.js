@@ -396,6 +396,9 @@ export const actions = {
 
 		if (headers['content-type'] === 'application/json') {
 			commit('setDate', data.data)
+			commit('setIsStarted', Date.now() > new Date(data.data.start).getTime())
+			commit('setIsEnded', Date.now() > new Date(data.data.start).getTime())
+			// commit('setIsVerified', data.data.is_verified)
 		} else {
 			commit('setIsLoggedIn', false, { root: true })
 		}
