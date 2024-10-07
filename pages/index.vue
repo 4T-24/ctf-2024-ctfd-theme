@@ -12,6 +12,9 @@
 				<iso-link to="/login" class="button login">Login</iso-link>
 				<iso-link to="/register" class="button register">Register</iso-link>
 			</div>
+			<div class="rules_btn">
+				<iso-link to="/rules" class="button rules">Rules</iso-link>
+			</div>
 		</div>
 		<div class="sponsors_container">
 			<p>Sponsored by :</p>
@@ -357,6 +360,10 @@ export default {
 		&.register {
 			background: linear-gradient(90deg, #ffc107 0%, #f44336 100%);
 		}
+
+		&.rules {
+			background: linear-gradient(90deg, #6aff07 0%, #1f5f01d2 100%);
+		}
 	}
 
 	.timer {
@@ -365,6 +372,7 @@ export default {
 		font-size: 4rem;
 		animation: time 2s linear;
 		animation-delay: 0.5s;
+		min-height: 75px;
 	}
 }
 .sponsors_container {
@@ -384,6 +392,9 @@ export default {
 		justify-content: space-around;
 		width: 60%;
 	}
+}
+.rules_btn {
+	margin-top: 15px;
 }
 .contributors_container {
 	display: flex;
