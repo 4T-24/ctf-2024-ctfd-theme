@@ -27,15 +27,15 @@ export default {
 				name: 'description',
 				hid: 'description',
 				content:
-					'4T$ CTF is an on-line CTF organized by 4T$, the official computer society of The University of Tokyo',
+					'4T$ CTF is an on-line CTF organized by 4T$',
 			},
-			{ name: 'apple-mobile-web-app-title', content: '4T$ CTF 2023' },
-			{ name: 'og:title', content: '4T$ CTF 2023' },
-			{ name: 'og:site_name', content: '4T$ CTF 2023' },
+			{ name: 'apple-mobile-web-app-title', content: '4T$ CTF' },
+			{ name: 'og:title', content: '4T$ CTF' },
+			{ name: 'og:site_name', content: '4T$ CTF' },
 			{
 				name: 'og:description',
 				content:
-					'4T$ CTF is an on-line CTF organized by 4T$, the official computer society of The University of Tokyo',
+					'4T$ CTF is an on-line CTF organized by 4T$',
 			},
 		],
 		link: [{ rel: 'icon', type: 'image/png', href: `${staticBase}/logo.png` }],
@@ -164,9 +164,9 @@ export default {
 			source: 'static/logo.png',
 		},
 		manifest: {
-			name: 'TSG CTF 2023',
-			short_name: 'TSG CTF',
-			start_url: 'https://score.ctf.tsg.ne.jp/?standalone=true',
+			name: '4T$ CTF',
+			short_name: '4T$ CTF',
+			start_url: 'https://ctf.4ts.fr/',
 			theme_color: '#47e543',
 			lang: 'en',
 		},
