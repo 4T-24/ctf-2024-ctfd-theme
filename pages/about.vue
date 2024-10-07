@@ -50,7 +50,7 @@
 			/>		
 		</a>
 		<p>
-			4T$ CTF is organized by <a href="https://4ts.fr/" target="_blank" rel="noopener noreferrer">4T$</a>, a group of CTF enjoyers.
+			4T$ CTF is organized by 4T$, a group of CTF enjoyers.
 		</p>
 		<p>Below is the full list of 4T$ members who contributed to this 4T$ CTF in success. So many thanks!!</p>
 		<ul class="members">
