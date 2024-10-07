@@ -19,7 +19,7 @@ export default {
 	target: 'static',
 
 	head: {
-		title: 'TSG CTF',
+		title: '4T$ CTF',
 		meta: [
 			{ charset: 'utf-8' },
 			{ name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -27,34 +27,18 @@ export default {
 				name: 'description',
 				hid: 'description',
 				content:
-					'TSG CTF is an on-line CTF organized by TSG, the official computer society of The University of Tokyo',
+					'4T$ CTF is an on-line CTF organized by 4T$, the official computer society of The University of Tokyo',
 			},
-			{ name: 'apple-mobile-web-app-title', content: 'TSG CTF 2023' },
-			{ name: 'og:title', content: 'TSG CTF 2023' },
-			{ name: 'og:site_name', content: 'TSG CTF 2023' },
+			{ name: 'apple-mobile-web-app-title', content: '4T$ CTF 2023' },
+			{ name: 'og:title', content: '4T$ CTF 2023' },
+			{ name: 'og:site_name', content: '4T$ CTF 2023' },
 			{
 				name: 'og:description',
 				content:
-					'TSG CTF is an on-line CTF organized by TSG, the official computer society of The University of Tokyo',
+					'4T$ CTF is an on-line CTF organized by 4T$, the official computer society of The University of Tokyo',
 			},
-			{ name: 'og:type', content: 'website' },
-			{ name: 'og:url', content: 'https://score.ctf.tsg.ne.jp' },
-			{ name: 'og:image', content: `${staticBase}/ogimage.jpg` },
-			{ name: 'twitter:card', content: 'summary_large_image' },
-			{ name: 'twitter:site', content: '@tsgctf' },
-			{ name: 'twitter:site', content: '@tsgctf' },
-			{ name: 'twitter:title', content: 'TSG CTF 2023' },
-			{
-				name: 'twitter:description',
-				content:
-					'TSG CTF is an on-line CTF organized by TSG, the official computer society of The University of Tokyo',
-			},
-			{ name: 'twitter:image', content: `${staticBase}/ogimage.jpg` },
-			{ name: 'twitter:image:alt', content: 'TSG CTF' },
 		],
-		link: [
-			{ rel: 'icon', type: 'image/png', href: `${staticBase}/favicon.png` },
-		],
+		link: [{ rel: 'icon', type: 'image/png', href: `${staticBase}/logo.png` }],
 	},
 
 	loading: { color: '#fff' },
@@ -167,7 +151,6 @@ export default {
 						path: '/teams/new',
 						handler: proxy,
 					},
-					
 				]
 			: []),
 	],
@@ -178,7 +161,7 @@ export default {
 
 	pwa: {
 		icon: {
-			source: 'static/favicon.png',
+			source: 'static/logo.png',
 		},
 		manifest: {
 			name: 'TSG CTF 2023',

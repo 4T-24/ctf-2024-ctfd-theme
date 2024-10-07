@@ -26,89 +26,22 @@
 			<!-- <img src="@/static/google-cloud.png" alt="" width="250px" /> -->
 		</div>
 
-		<!-- Section Team -->
-		<div class="contributors_container">
-			<p>LA TEAM</p>
-			<div class="contributors">
-				<div
-					v-for="contributor in contributors.slice(0, 2)"
-					:key="contributor.name"
-				>
-					<img
-						src="@/static/dog.jpeg"
-						alt=""
-						width="80px"
-						class="contributor_image"
-					/>
-
-					<p style="font-weight: bold; margin-bottom: 5px">
-						{{ contributor.name }}
-					</p>
-
-					<p style="text-align: center">{{ contributor.role }}</p>
-				</div>
-			</div>
-			<div class="contributors">
-				<div
-					v-for="contributor in contributors.slice(2, 5)"
-					:key="contributor.name"
-				>
-					<img
-						src="@/static/dog.jpeg"
-						alt=""
-						width="80px"
-						class="contributor_image"
-					/>
-
-					<p style="font-weight: bold; margin-bottom: 5px">
-						{{ contributor.name }}
-					</p>
-
-					<p style="text-align: center">{{ contributor.role }}</p>
-				</div>
-			</div>
-		</div>
+		<Contributors />
 	</section>
 </template>
 
 <script>
 import IsoLink from '~/components/IsoLink.vue'
+import Contributors from '../components/Contributors.vue'
 import { mapState } from 'vuex'
 
 export default {
-	components: { IsoLink },
+	components: { IsoLink, Contributors },
 	data() {
 		return {
 			remainingTime: this.getRemaining(),
 			contestEnd: null,
 			contestStart: null,
-			contributors: [
-				{
-					name: 'Yewolf',
-					role: 'Genre ',
-					icon: 'dog.jpeg',
-				},
-				{
-					name: 'MysterGoo',
-					role: 'Genre vraiment big dev front',
-					icon: 'dog.jpeg',
-				},
-				{
-					name: 'Nathan',
-					role: 'Genre vraiment big dev front',
-					icon: 'dog.jpeg',
-				},
-				{
-					name: 'Thib',
-					role: 'Genre vraiment big dev front',
-					icon: 'dog.jpeg',
-				},
-				{
-					name: 'Mada07',
-					role: 'Genre vraiment big dev front',
-					icon: 'dog.jpeg',
-				},
-			],
 		}
 	},
 	head() {
@@ -395,36 +328,5 @@ export default {
 }
 .rules_btn {
 	margin-top: 15px;
-}
-.contributors_container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	& > p {
-		font-weight: bolder;
-		font-size: larger;
-		margin-bottom: 15px;
-	}
-	.contributors {
-		margin-top: 20px;
-		display: flex;
-		align-self: center;
-		justify-content: center;
-		width: 100%;
-		& > div {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			width: 20%;
-			max-width: 150px;
-		}
-		.contributor_image {
-			margin-bottom: 10px;
-			padding-left: 5px;
-			padding-right: 5px;
-			border-radius: 100%;
-			overflow: hidden;
-		}
-	}
 }
 </style>
