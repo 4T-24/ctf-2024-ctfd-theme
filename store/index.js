@@ -13,6 +13,7 @@ export const state = () => ({
 	isAdmin: false,
 	user: {},
 	team: {},
+	date: {},
 	rules: '',
 	language: 'en',
 	countries: [
@@ -325,6 +326,9 @@ export const mutations = {
 	setIsAdmin(s, payload) {
 		s.isAdmin = payload
 	},
+	setDate(s, payload) {
+		s.date = payload
+	},
 }
 
 export const actions = {
@@ -377,12 +381,21 @@ export const actions = {
 			commit('setIsInTeam', false, { root: true })
 		}
 	},
-	async updateDates({ commit }, { $axios }) {
-		const { data, headers } = await $axios.get('/api/v1/dates')
+	// async updateDates({ commit }, { $axios }) {
+	// 	const { data, headers } = await $axios.get('/api/v1/dates')
+	// 	if (headers['content-type'] === 'application/json') {
+	// 		commit('setIsStarted', data.data.is_started)
+	// 		commit('setIsEnded', data.data.is_ended)
+	// 		commit('setIsVerified', data.data.is_verified)
+	// 	} else {
+	// 		commit('setIsLoggedIn', false, { root: true })
+	// 	}
+	// },
+	async getDates({ commit }, { $axios }) {
+		const { data, headers } = await $axios.get('/api/v1/date')
+
 		if (headers['content-type'] === 'application/json') {
-			commit('setIsStarted', data.data.is_started)
-			commit('setIsEnded', data.data.is_ended)
-			commit('setIsVerified', data.data.is_verified)
+			commit('setDate', data.data)
 		} else {
 			commit('setIsLoggedIn', false, { root: true })
 		}

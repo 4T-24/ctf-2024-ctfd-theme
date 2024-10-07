@@ -13,7 +13,7 @@
 								{{ team && team.name }}
 							</div>
 						</div>
-						<div
+						<div 
 							v-if="isDropping"
 							class="dropdown-menu"
 							@click="onClickDropdown"
@@ -149,26 +149,6 @@
 			<nuxt />
 		</div>
 		<div class="footer">
-			<!-- <p class="sponsor-line">
-				Sponsored by
-				<a href="https://flatt.tech/" target="_blank" rel="noopener noreferrer">
-					<img class="flatt" src="@/static/flatt.png" alt="flatt Security">
-				</a>
-				<a href="https://en.wiktionary.org/wiki/%E3%81%8A%E8%BE%9E%E5%84%80" target="_blank" rel="noopener noreferrer">
-					<img class="ojigineko" src="@/static/ojigineko-white.gif" alt="ojigineko">
-				</a>
-			</p>
-			<p class="sponsor-line">
-				Infra Sponsored by <a href="https://g.co/cloud" target="_blank" rel="noopener noreferrer">g.co/cloud</a>
-				<a href="https://g.co/cloud" target="_blank" rel="noopener noreferrer">
-					<img class="google-cloud" src="@/static/google-cloud.png" alt="flatt Security">
-				</a>
-				<a href="https://en.wiktionary.org/wiki/%E3%81%8A%E8%BE%9E%E5%84%80" target="_blank" rel="noopener noreferrer">
-					<img class="ojigineko" src="@/static/ojigineko-white.gif" alt="ojigineko">
-				</a>
-			</p>
-			<p>Organized by <a href="https://tsg.ne.jp/" target="_blank" rel="noopener noreferrer">TSG</a>, a student team from The University of Tokyo</p>
-			<p>Powered by <a href="https://ctfd.io/" target="_blank" rel="noopener noreferrer">CTFd</a></p> -->
 			<p>Made with ❤️ by Nathan</p>
 		</div>
 	</div>
@@ -206,7 +186,6 @@ export default {
 		]),
 	},
 	mounted() {
-		
 		if (window.innerWidth <= 900) {
 			this.isMobile = true
 		}

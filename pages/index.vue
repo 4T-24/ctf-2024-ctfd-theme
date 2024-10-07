@@ -7,7 +7,7 @@
 				><span>F</span>
 			</h1>
 			<p class="subtitle">Pwn, Web, Crypto, Rev, etc...</p>
-			<div class="timer">{{ timer }}</div>
+			<div v-if="contestStart && contestEnd" class="timer">{{ timer }}</div>
 			<div v-if="!isLoggedIn" class="buttons">
 				<iso-link to="/login" class="button login">Login</iso-link>
 				<iso-link to="/register" class="button register">Register</iso-link>
@@ -72,15 +72,13 @@
 import IsoLink from '~/components/IsoLink.vue'
 import { mapState } from 'vuex'
 
-const contestStart = new Date('2023-11-04T07:00:00Z').getTime()
-const contestEnd = new Date('2023-11-05T07:00:00Z').getTime()
-
 export default {
 	components: { IsoLink },
 	data() {
 		return {
 			remainingTime: this.getRemaining(),
-
+			contestEnd: null,
+			contestStart: null,
 			contributors: [
 				{
 					name: 'Yewolf',
@@ -116,27 +114,37 @@ export default {
 		}
 	},
 	computed: {
+		...mapState({
+			date: 'date',
+		}),
 		timer() {
-			const days = Math.floor(this.remainingTime / 1000 / 60 / 60 / 24)
-				.toString()
-				.padStart(2, '0')
-			const hours = (Math.floor(this.remainingTime / 1000 / 60 / 60) % 24)
-				.toString()
-				.padStart(2, '0')
-			const minutes = (Math.floor(this.remainingTime / 1000 / 60) % 60)
-				.toString()
-				.padStart(2, '0')
-			const seconds = (Math.floor(this.remainingTime / 1000) % 60)
-				.toString()
-				.padStart(2, '0')
-			return `${days}:${hours}:${minutes}:${seconds}`
+			if (this.remainingTime) {
+				const days = Math.floor(this.remainingTime / 1000 / 60 / 60 / 24)
+					.toString()
+					.padStart(2, '0')
+				const hours = (Math.floor(this.remainingTime / 1000 / 60 / 60) % 24)
+					.toString()
+					.padStart(2, '0')
+				const minutes = (Math.floor(this.remainingTime / 1000 / 60) % 60)
+					.toString()
+					.padStart(2, '0')
+				const seconds = (Math.floor(this.remainingTime / 1000) % 60)
+					.toString()
+					.padStart(2, '0')
+				return `${days}:${hours}:${minutes}:${seconds}`
+			}
+			return ''
 		},
 		...mapState(['isLoggedIn']),
 	},
-	mounted() {
+	async mounted() {
+		await this.$store.dispatch('getDates', { $axios: this.$axios })
+
+		this.contestStart = new Date(this.date.start).getTime()
+		this.contestEnd = new Date(this.date.end).getTime()
 		this.interval = setInterval(() => {
 			this.remainingTime = this.getRemaining()
-		}, 1000)
+		}, 500)
 	},
 	destroyed() {
 		clearInterval(this.interval)
@@ -144,13 +152,13 @@ export default {
 	methods: {
 		getRemaining() {
 			const now = Date.now()
-			if (now > contestEnd) {
+			if (now > this.contestEnd) {
 				return 0
 			}
-			if (now > contestStart) {
-				return contestEnd - now
+			if (now > this.contestStart) {
+				return this.contestEnd - now
 			}
-			return contestStart - now
+			return this.contestStart - now
 		},
 	},
 }
@@ -161,6 +169,15 @@ export default {
 	syntax: '<color>';
 	inherits: false;
 	initial-value: rgba(249, 255, 196, 0.1);
+}
+
+@keyframes time {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
 /* We are hacker :) */
@@ -346,6 +363,8 @@ export default {
 		margin-top: 1rem;
 		font-family: 'Roboto', sans-serif;
 		font-size: 4rem;
+		animation: time 2s linear;
+		animation-delay: 0.5s;
 	}
 }
 .sponsors_container {
