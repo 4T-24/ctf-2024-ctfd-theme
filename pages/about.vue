@@ -35,10 +35,10 @@
 		<p>Do not hesitate to take a look to their offers ! <a href="https://www.infomaniak.com/">https://www.infomaniak.com/</a> </p>
 		<h3>Prizes</h3>
 		<ul>
-			<li>1st: 1,000 CHF Infomaniak public cloud credits, 1 Infomaniak bag and 1 pen per person.</li>
-			<li>2nd: 1,000 CHF Infomaniak public cloud credits and 1 pen per person.</li>
-			<li>3rd: 500 CHF Infomaniak public cloud credits per person.</li>
-			<li>Others: 300 CHF Infomaniak public cloud credits per person with Infomaniak offer.</li>
+			<li>1st: 1'000.- CHF Infomaniak public cloud credits, 1 Infomaniak bag and 1 pen per person.</li>
+			<li>2nd: 1'000.- CHF Infomaniak public cloud credits and 1 pen per person.</li>
+			<li>3rd: 500.- CHF Infomaniak public cloud credits per person.</li>
+			<li>Others: 300.- CHF Infomaniak public cloud credits per person with Infomaniak offer.</li>
 		</ul>
 
 		<h3>Staffs</h3>
