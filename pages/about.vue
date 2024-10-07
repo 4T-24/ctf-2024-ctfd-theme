@@ -156,6 +156,14 @@ export default {
 		margin-left: 0.2rem;
 	}
 
+	img {
+		display: block;
+		margin: 0 auto;
+		max-width: 30rem;
+		margin-bottom: 1rem;
+	}
+
+
 	.member {
 		&:hover {
 			.ojigineko {
