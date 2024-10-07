@@ -35,7 +35,7 @@
 				/>
 
 				<p style="font-weight: bold; margin-bottom: 5px">Nathan</p>
-				<p style="text-align: center">Big BG</p>
+				<p style="text-align: center">Frontend Master</p>
 			</div>
 			<div>
 				<img
