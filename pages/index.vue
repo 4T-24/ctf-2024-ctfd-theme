@@ -46,7 +46,7 @@ export default {
 	},
 	head() {
 		return {
-			title: 'TSG CTF 2023',
+			title: '4T$ CTF',
 		}
 	},
 	computed: {
