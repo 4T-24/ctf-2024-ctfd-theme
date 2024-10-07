@@ -88,7 +88,7 @@ export default {
 	},
 	head() {
 		return {
-			title: 'Challenges - TSG CTF',
+			title: 'Challenges - 4T$ CTF',
 		}
 	},
 	computed: {
