@@ -15,7 +15,7 @@ export default {
 	components: {IsoLink},
 	head() {
 		return {
-			title: 'Team - TSG CTF',
+			title: 'Team - 4T$ CTF',
 		};
 	},
 	computed: {
