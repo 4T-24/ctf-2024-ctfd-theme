@@ -45,7 +45,7 @@
 					class="contributor_image"
 				/>
 
-				<p style="font-weight: bold; margin-bottom: 5px">Thib</p>
+				<p style="font-weight: bold; margin-bottom: 5px">Malo</p>
 				<p style="text-align: center">BackUp Infra</p>
 			</div>
 			<div>
@@ -56,7 +56,8 @@
 					class="contributor_image"
 				/>
 
-				<p style="font-weight: bold; margin-bottom: 5px">BackUp Infra</p>
+				<p style="font-weight: bold; margin-bottom: 5px">Thib</p>
+				<p style="text-align: center">BackUp Infra</p>
 			</div>
 		</div>
 	</div>
