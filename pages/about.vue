@@ -22,24 +22,40 @@
 				</iframe>
 			</li>
 		</ul>
-		<h3>Sponsor</h3>
+		<h3>Sponsors</h3>
 		<a href="https://www.infomaniak.com/" target="_blank" rel="noopener noreferrer">
 			<img
 				src="@/static/logo_infomaniak_baseline_light-theme_vertical.png"
-				alt=""
+				alt="Infomaniak logo"
 				width="250px"
 			/>
 		</a>
 		<p>Infomaniak is a Swiss-based company specializing in web hosting, cloud services, and domain registration.</p>
 		<p>Known for its focus on privacy, security, and sustainability, it offers solutions for websites, email, and drive.</p>
 		<p>Do not hesitate to take a look to their offers ! <a href="https://www.infomaniak.com/">https://www.infomaniak.com/</a> </p>
+
+		<a href="https://www.offsec.com/" target="_blank" rel="noopener noreferrer">
+			<img
+				src="@/static/OffSec_Tagline_White_Text.png"
+				alt="OffSec logo"
+				width="250px"
+			/>
+		</a>
+		<p>OffSec is a leading provider of world-class cybersecurity training and certifications provider specializing in hands-on ethical hacking and penetration testing.</p>
+		<p>Their premier certification, the OSCP (Offensive Security Certified Professional), is highly respected for its practical, hands-on approach, preparing candidates to identify and exploit real-world vulnerabilities.</p>
+		<p>Discover OffSec's industry-leading training and certifications to boost your cybersecurity skills and stay ahead in ethical hacking. ! <a href="https://www.offsec.com/">https://www.offsec.com/</a> </p>
+
+
 		<h3>Prizes</h3>
 		<ul>
-			<li>1st: 1'000.- CHF Infomaniak public cloud credits, 1 Infomaniak bag and 1 pen per person.</li>
-			<li>2nd: 1'000.- CHF Infomaniak public cloud credits and 1 pen per person.</li>
-			<li>3rd: 500.- CHF Infomaniak public cloud credits per person.</li>
+			<li>1st: 1st: 4x1'000.- CHF Infomaniak public cloud credits, 4 Infomaniak bag and 4 pen. Also 1 Learn Fundamentals Subscription be offered to the team by Offsec*.</li>
+			<li>2nd: 4x1'000.- CHF Infomaniak public cloud credits and 4 pen. 1 PG Subscription will be offered to the team by Offsec*.</li>
+			<li>3rd: 4x500.- CHF Infomaniak public cloud credits. 1 PG Subscription will be offered to the team by Offsec*.</li>
 			<li>Others: 300.- CHF Infomaniak public cloud credits per person with Infomaniak offer.</li>
 		</ul>
+
+		* Subscriptions offered by Offsec requires the individual to be at least 18 years old. For individuals between 16 and 18 years old, they will need to provide a confirmation letter from their parent(s) or legal guardian.
+		** Infomaniak prizes are based on the amount of people in the team.
 
 		<h3>Staffs</h3>
 		<a href="https://4ts.fr" target="_blank" rel="noopener noreferrer">

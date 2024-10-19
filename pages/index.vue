@@ -1,333 +1,193 @@
 <template>
-	<section class="index_section">
-		<div class="Index">
-			<!-- <h1 class="ctf-logo"><span>T</span><span>S</span><span>G</span> <span>C</span><span>T</span><span>F</span></h1> -->
-			<h1 class="ctf-logo">
-				<span>4</span><span>T</span><span>$</span> <span>C</span><span>T</span
-				><span>F</span>
-			</h1>
-			<p class="subtitle">Pwn, Web, Crypto, Rev, etc...</p>
-			<div v-if="contestStart && contestEnd" class="timer">{{ timer }}</div>
-			<div v-if="!isLoggedIn" class="buttons">
-				<iso-link to="/login" class="button login">Login</iso-link>
-				<iso-link to="/register" class="button register">Register</iso-link>
-			</div>
-			<div class="rules_btn">
-				<iso-link to="/rules" class="button rules">Rules</iso-link>
-			</div>
-		</div>
-		<div class="sponsors_container">
-			<p>Sponsored by :</p>
+	<section class="About">
+		<h2 class="title"><span>About</span></h2>
+		<h3>Period</h3>
+		<p class="period">
+			<a href="https://www.timeanddate.com/worldclock/fixedtime.html?msg=4T%24+CTF&iso=20241108T18&p1=%3A" target="_blank" rel="noopener noreferrer"> 08/11 18:00 </a>
+			-
+			<a href="https://www.timeanddate.com/worldclock/fixedtime.html?msg=End+of+4T%24+CTF&iso=20241110T18&p1=%3A" target="_blank" rel="noopener noreferrer"> 10/11 18:00 </a>
+		</p>
+		<p :style="{textAlign: 'center'}">(UTC)</p>
+		<h3>Socials</h3>
+		<ul class="socials">
+			<li>
+				<iframe
+					src="https://discord.com/widget?id=1261029732582162442&theme=dark" 
+					allowtransparency="true"
+					frameborder="0"
+					width="100%"
+					height="100%"
+				>
+					<a href="https://discord.gg/2AbXu9sD2G" target="_blank" rel="noopener noreferrer">Discord</a>
+				</iframe>
+			</li>
+		</ul>
+		<h3>Sponsors</h3>
+		<a href="https://www.infomaniak.com/" target="_blank" rel="noopener noreferrer">
 			<img
 				src="@/static/logo_infomaniak_baseline_light-theme_vertical.png"
-				alt=""
+				alt="Infomaniak logo"
 				width="250px"
 			/>
-			<!-- <img src="@/static/google-cloud.png" alt="" width="250px" /> -->
-		</div>
+		</a>
+		<p>Infomaniak is a Swiss-based company specializing in web hosting, cloud services, and domain registration.</p>
+		<p>Known for its focus on privacy, security, and sustainability, it offers solutions for websites, email, and drive.</p>
+		<p>Do not hesitate to take a look to their offers ! <a href="https://www.infomaniak.com/">https://www.infomaniak.com/</a> </p>
 
-		<Contributors />
+		<a href="https://www.offsec.com/" target="_blank" rel="noopener noreferrer">
+			<img
+				src="@/static/OffSec_Tagline_White_Text.png"
+				alt="OffSec logo"
+				width="250px"
+			/>
+		</a>
+		<p>OffSec is a leading provider of world-class cybersecurity training and certifications provider specializing in hands-on ethical hacking and penetration testing.</p>
+		<p>Their premier certification, the OSCP (Offensive Security Certified Professional), is highly respected for its practical, hands-on approach, preparing candidates to identify and exploit real-world vulnerabilities.</p>
+		<p>Discover OffSec's industry-leading training and certifications to boost your cybersecurity skills and stay ahead in ethical hacking. ! <a href="https://www.offsec.com/">https://www.offsec.com/</a> </p>
+
+
+
+
+		<h3>Prizes</h3>
+		<ul>
+			<li>1st: 1st: 4x1'000.- CHF Infomaniak public cloud credits, 4 Infomaniak bag and 4 pen. Also 1 Learn Fundamentals Subscription be offered to the team by Offsec*.</li>
+			<li>2nd: 4x1'000.- CHF Infomaniak public cloud credits and 4 pen. 1 PG Subscription will be offered to the team by Offsec*.</li>
+			<li>3rd: 4x500.- CHF Infomaniak public cloud credits. 1 PG Subscription will be offered to the team by Offsec*.</li>
+			<li>Others: 300.- CHF Infomaniak public cloud credits per person with Infomaniak offer.</li>
+		</ul>
+
+		* Subscriptions offered by Offsec requires the individual to be at least 18 years old. For individuals between 16 and 18 years old, they will need to provide a confirmation letter from their parent(s) or legal guardian.
+		** Infomaniak prizes are based on the amount of people in the team.
+
+		<h3>Staffs</h3>
+		<a href="https://4ts.fr" target="_blank" rel="noopener noreferrer">
+			<img
+				src="@/static/logo.png"
+				alt=""
+				width="250px"
+			/>		
+		</a>
+		<p>
+			4T$ CTF is organized by 4T$, a group of CTF enjoyers.
+		</p>
+		<p>Below is the full list of 4T$ members who contributed to this 4T$ CTF in success. So many thanks!!</p>
+		<ul class="members">
+			<li v-for="member in members" :key="member" class="member">
+				<a :href="member.url" target="_blank" rel="noopener noreferrer">{{ member.name }}</a>
+				<a href="https://en.wiktionary.org/wiki/%E3%81%8A%E8%BE%9E%E5%84%80" target="_blank" rel="noopener noreferrer">
+					<img class="ojigineko" src="@/static/ojigineko-white.gif" alt="ojigineko">
+				</a>
+			</li>
+		</ul>
 	</section>
 </template>
 
 <script>
-import IsoLink from '~/components/IsoLink.vue'
-import Contributors from '../components/Contributors.vue'
-import { mapState } from 'vuex'
+import {Timeline} from 'vue-tweet-embed';
 
 export default {
-	components: { IsoLink, Contributors },
-	data() {
-		return {
-			remainingTime: this.getRemaining(),
-			contestEnd: null,
-			contestStart: null,
-		}
-	},
+	components: {Timeline},
 	head() {
 		return {
-			title: '4T$ CTF',
-		}
+			title: 'About - 4T$ CTF',
+		};
 	},
-	computed: {
-		...mapState({
-			date: 'date',
-		}),
-		
-		timer() {
-			if (this.remainingTime) {
-				const days = Math.floor(this.remainingTime / 1000 / 60 / 60 / 24)
-					.toString()
-					.padStart(2, '0')
-				const hours = (Math.floor(this.remainingTime / 1000 / 60 / 60) % 24)
-					.toString()
-					.padStart(2, '0')
-				const minutes = (Math.floor(this.remainingTime / 1000 / 60) % 60)
-					.toString()
-					.padStart(2, '0')
-				const seconds = (Math.floor(this.remainingTime / 1000) % 60)
-					.toString()
-					.padStart(2, '0')
-				return `${days}:${hours}:${minutes}:${seconds}`
-			}
-			return ''
-		},
-		...mapState(['isLoggedIn']),
+	data() {
+		return {
+			members: [
+				{ url: 'https://yewolf.fr', name: 'Yewolf' },
+				{ url: 'https://github.com/Nounoursdestavernes', name: 'Nounours des tavernes' },
+				{ url: 'https://github.com/NathanCornelie', name: 'Nathan' },
+				{ url: 'https://github.com/thibault-cne', name: 'Thib' }, 
+				{ url: 'https://github.com/ElFamos0', name: 'Mada07' },
+			],
+		};
 	},
-	async mounted() {
-		await this.$store.dispatch('getDates', { $axios: this.$axios })
-
-		this.contestStart = new Date(this.date.start).getTime()
-		this.contestEnd = new Date(this.date.end).getTime()
-		this.interval = setInterval(() => {
-			this.remainingTime = this.getRemaining()
-		}, 500)
-	},
-	destroyed() {
-		clearInterval(this.interval)
-	},
-	methods: {
-		getRemaining() {
-			const now = Date.now()
-			if (now > this.contestEnd) {
-				return 0
-			}
-			if (now > this.contestStart) {
-				return this.contestEnd - now
-			}
-			return this.contestStart - now
-		},
-	},
-}
+};
 </script>
 
 <style lang="postcss">
-@property --shadow-color {
-	syntax: '<color>';
-	inherits: false;
-	initial-value: rgba(249, 255, 196, 0.1);
-}
-
-@keyframes time {
-	from {
-		opacity: 0;
-	}
-	to {
-		opacity: 1;
-	}
-}
-
-/* We are hacker :) */
-@keyframes blinkLogo {
-	0% {
-		--shadow-color: rgba(249, 255, 196, 0.1);
-	}
-	1% {
-		--shadow-color: rgba(238, 255, 82, 0);
-	}
-
-	11% {
-		--shadow-color: rgba(249, 255, 196, 0.1);
-	}
-	11.5% {
-		--shadow-color: rgba(238, 255, 82, 0);
-	}
-	12% {
-		--shadow-color: rgba(249, 255, 196, 0.1);
-	}
-	12.5% {
-		--shadow-color: rgba(238, 255, 82, 0);
-	}
-	13% {
-		--shadow-color: rgba(249, 255, 196, 0.1);
-	}
-	13.5% {
-		--shadow-color: rgba(238, 255, 82, 0);
-	}
-
-	24% {
-		--shadow-color: rgba(249, 255, 196, 0.1);
-	}
-	25% {
-		--shadow-color: rgba(238, 255, 82, 0);
-	}
-	25.5% {
-		--shadow-color: rgba(249, 255, 196, 0.1);
-	}
-	26.5% {
-		--shadow-color: rgba(238, 255, 82, 0);
-	}
-	27% {
-		--shadow-color: rgba(249, 255, 196, 0.1);
-	}
-	27.5% {
-		--shadow-color: rgba(238, 255, 82, 0);
-	}
-
-	50% {
-		--shadow-color: rgba(249, 255, 196, 0.1);
-	}
-	51% {
-		--shadow-color: rgba(238, 255, 82, 0);
-	}
-	51.5% {
-		--shadow-color: rgba(249, 255, 196, 0.1);
-	}
-	52% {
-		--shadow-color: rgba(238, 255, 82, 0);
-	}
-	52.5% {
-		--shadow-color: rgba(249, 255, 196, 0.1);
-	}
-	53.5% {
-		--shadow-color: rgba(238, 255, 82, 0);
-	}
-	54% {
-		--shadow-color: rgba(249, 255, 196, 0.1);
-	}
-	54.5% {
-		--shadow-color: rgba(238, 255, 82, 0);
-	}
-
-	65% {
-		--shadow-color: rgba(249, 255, 196, 0.1);
-	}
-	66% {
-		--shadow-color: rgba(238, 255, 82, 0);
-	}
-
-	76% {
-		--shadow-color: rgba(249, 255, 196, 0.1);
-	}
-	76.5% {
-		--shadow-color: rgba(238, 255, 82, 0);
-	}
-	77% {
-		--shadow-color: rgba(249, 255, 196, 0.1);
-	}
-	77.5% {
-		--shadow-color: rgba(238, 255, 82, 0);
-	}
-	78% {
-		--shadow-color: rgba(249, 255, 196, 0.1);
-	}
-	79% {
-		--shadow-color: rgba(238, 255, 82, 0);
-	}
-	79.5% {
-		--shadow-color: rgba(249, 255, 196, 0.1);
-	}
-	80% {
-		--shadow-color: rgba(238, 255, 82, 0);
-	}
-}
-
-.Index {
-	margin: 0 auto;
-	height: calc(100vh - 12rem);
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-
-	.ctf-logo {
+.About {
+	h3 {
+		font-size: 2rem;
 		font-family: 'Fredoka One', cursive;
-		font-size: 8rem;
 		font-weight: 300;
-		color: rgb(242 250 254);
-		-webkit-text-fill-color: transparent;
-		animation: 10s blinkLogo infinite;
-		animation-timing-function: step-end;
-		text-shadow:
-			0 0 3px var(--shadow-color),
-			0 0 10px var(--shadow-color),
-			0 0 20px var(--shadow-color),
-			0 0 30px var(--shadow-color),
-			0 0 40px var(--shadow-color),
-			0 0 50px var(--shadow-color),
-			0 0 70px var(--shadow-color),
-			0 0 100px var(--shadow-color);
-		background: linear-gradient(
-			90deg,
-			rgb(242 250 254) 0%,
-			rgb(118 125 131) 100%
-		);
-		background-clip: text;
-		display: block;
+		text-align: center;
+		text-transform: uppercase;
 		letter-spacing: 1px;
-		mix-blend-mode: screen;
-
-		@media (max-width: 900px) {
-			font-size: 18vw;
-		}
+		margin-top: 3rem;
+		margin-bottom: 1rem;
+		word-break: break-word;
 	}
 
-	.subtitle {
-		font-family: 'Roboto', sans-serif;
-		font-size: 1.5rem;
-		margin-top: -1rem;
-		opacity: 0.3;
+	.period {
+		text-align: center;
+		font-size: 3rem;
+		line-height: 3rem;
 	}
 
-	.buttons {
+	p,
+	ul,
+	ol {
+		font-family: 'Roboto';
+		width: 100%;
+		max-width: 50rem;
+		margin: 0 auto;
+		font-size: 1.4rem;
+		line-height: 2rem;
+	}
+
+	ul.socials {
 		display: flex;
-		margin-top: 1rem;
 		justify-content: center;
+		flex-wrap: wrap;
+		padding: 0;
+
+		li {
+			flex: 0 0 20rem;
+			height: 30rem;
+			overflow-y: auto;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			font-size: 1rem;
+			margin: 0 1rem 0.6rem;
+		}
 	}
 
-	.button {
+	a {
+		color: #90cbff;
+	}
+
+	:has(.twitter-timeline) {
+		width: 100%;
+	}
+
+	.ojigineko {
+		background: url('../static/ojigineko-white.gif');
+		background-size: cover;
+		display: inline-block;
+		width: 1rem;
+		opacity: 0;
+		transition: opacity 0.2s;
+		margin-bottom: 0;
+		margin-left: 0.2rem;
+	}
+
+	img {
 		display: block;
-		margin: 0 0.5rem;
-		width: 10rem;
-		height: 2.6rem;
-		line-height: 2.6rem;
-		border-radius: 8px;
-		font-size: 1.5rem;
-		font-family: 'Fredoka One', cursive;
-		font-weight: 300;
+		margin: 0 auto;
+		max-width: 30rem;
+		margin-bottom: 1rem;
+	}
 
-		&.login {
-			background: linear-gradient(90deg, #6299a7 0%, #21207d 100%);
-		}
 
-		&.register {
-			background: linear-gradient(90deg, #ffc107 0%, #f44336 100%);
-		}
-
-		&.rules {
-			background: linear-gradient(90deg, #6aff07 0%, #1f5f01d2 100%);
+	.member {
+		&:hover {
+			.ojigineko {
+				opacity: 0.3;
+			}
 		}
 	}
-
-	.timer {
-		margin-top: 1rem;
-		font-family: 'Roboto', sans-serif;
-		font-size: 4rem;
-		animation: time 2s linear;
-		animation-delay: 0.5s;
-		min-height: 75px;
-	}
-}
-.sponsors_container {
-	& > p {
-		font-weight: bolder;
-		font-size: larger;
-		margin-bottom: 15px;
-	}
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	margin-bottom: 5rem;
-	& > div {
-		display: flex;
-		align-items: center;
-		justify-content: space-around;
-		width: 60%;
-	}
-}
-.rules_btn {
-	margin-top: 15px;
 }
 </style>
