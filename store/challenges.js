@@ -16,7 +16,7 @@ export const state = () => ({
 	challenges: [],
 	selectedChallenge: null,
 	selectedChallengeInstance: {
-		status: 'Stopped / Starting / Stopping / Running',
+		status: 'Running',
 		servers: [
 			{
 				kind: 'http',

@@ -63,21 +63,28 @@
 						v-html="$md.render(getDescription())"
 					/>
 				</div>
+
 				<div v-if="challenge.type != 'standard'" class="instance">
-					<div :class="{ blured: challenge.type != 'standard' }">
+					<div
+						v-if="instance.status == 'Running'"
+						:class="{ blured: instance.status != 'Running' }"
+					>
 						<p>Informations Instanciate</p>
 					</div>
 
 					<div :class="{ animation_background: !test, 'instance-btn': true }">
 						<button
-							v-if="test"
+							v-if="!instance || instance.status == 'Stopped'"
 							@click="createInstance()"
 							class="instance-btn"
 							style="background-color: green"
 						>
 							<span>Create Instance <Home /></span>
 						</button>
-						<button v-else @click="test = !test" class="animation_background">
+						<button
+							v-else-if="instance.status == 'Starting'"
+							class="animation_background"
+						>
 							<span class="instance-loader" style="display: flex">
 								<pulse-loader
 									color="#fff"
@@ -102,7 +109,11 @@
 					</a>
 				</div>
 				<div v-if="challenge.type != 'standard'" class="">
-					<button class="quit_button" @click="stopInstance()">
+					<button
+						class="quit_button"
+						v-if="instance.status == 'Running'"
+						@click="stopInstance()"
+					>
 						<span>Stop Instance<PowerSettings /></span>
 					</button>
 				</div>
@@ -174,18 +185,21 @@ export default {
 			boo: false,
 		}
 	},
-
+	mounted() {},
 	computed: {
 		challenge() {
 			console.log(this.$store.state.challenges.selectedChallenge)
-
+			console.log(this.$store.state.challenges.selectedChallengeInstance)
 			return this.$store.state.challenges.selectedChallenge
+		},
+		instance() {
+			return this.$store.state.challenges.selectedChallengeInstance
 		},
 		...mapState([
 			'isEnded',
 			'isStatic',
 			'language',
-			 
+			'selectedChallengeInstance',
 		]),
 		tags() {
 			return this.challenge.tags
@@ -220,6 +234,7 @@ export default {
 				this.isOpen = true
 			}
 		},
+
 		// https://stackoverflow.com/a/13627586/2864502
 		formatOrdinals(i) {
 			const j = i % 10
