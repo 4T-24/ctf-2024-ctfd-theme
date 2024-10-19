@@ -8,7 +8,7 @@
 		<div v-if="isEnded" class="ended">
 			TSG CTF has been ended!<br />Thank you for your pariticipation!
 		</div>
-		<div v-if="isStarted" class="challenges-container">
+		<div v-if="isStarted & !isEnded" class="challenges-container">
 			<div class="side-panel-category">
 				<div>
 					<h3>Categories</h3>
@@ -99,7 +99,8 @@ export default {
 			isStatic: 'isStatic',
 			isLoggedIn: 'isLoggedIn',
 			isStarted: 'isStarted',
-			isEnded: 'isEnded',
+			// isEnded: 'isEnded', TODO
+			isEnded: false,
 			isVerified: 'isVerified',
 			isInTeam: 'isInTeam',
 			challenges: (state) => state.challenges.challenges,

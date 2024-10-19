@@ -15,7 +15,20 @@ const categoryOrders = [
 export const state = () => ({
 	challenges: [],
 	selectedChallenge: null,
-	selectedChallengeInstance: null,
+	selectedChallengeInstance: {
+		status: 'Stopped / Starting / Stopping / Running',
+		servers: [
+			{
+				kind: 'http',
+				host: 'cdsfj.com',
+			},
+			{
+				kind: 'tcp',
+				host: 'cdsfj.com',
+				port: '5656',
+			},
+		],
+	},
 })
 
 export const getters = {

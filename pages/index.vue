@@ -53,6 +53,7 @@ export default {
 		...mapState({
 			date: 'date',
 		}),
+		
 		timer() {
 			if (this.remainingTime) {
 				const days = Math.floor(this.remainingTime / 1000 / 60 / 60 / 24)

@@ -57,16 +57,18 @@
 					<div
 						ref="description"
 						:class="{
-							blured: challenge.type != 'standard',
+							// blured: challenge.type != 'standard',
 							'description-column': true,
 						}"
 						v-html="$md.render(getDescription())"
 					/>
+				</div>
+				<div v-if="challenge.type != 'standard'" class="instance">
+					<div :class="{ blured: challenge.type != 'standard' }">
+						<p>Informations Instanciate</p>
+					</div>
 
-					<div
-						v-if="challenge.type != 'standard'"
-						:class="{ animation_background: !test, 'instance-btn': true }"
-					>
+					<div :class="{ animation_background: !test, 'instance-btn': true }">
 						<button
 							v-if="test"
 							@click="createInstance()"
@@ -76,20 +78,17 @@
 							<span>Create Instance <Home /></span>
 						</button>
 						<button v-else @click="test = !test" class="animation_background">
-							<!-- <div style="width: 150px; height: 20px"></div> -->
 							<span class="instance-loader" style="display: flex">
 								<pulse-loader
 									color="#fff"
 									size="6px"
 									style="margin-left: 3px"
 								/>
-
 								Creating
 							</span>
 						</button>
 					</div>
 				</div>
-
 				<div class="attachments">
 					<a
 						v-for="file in challenge.files"
@@ -182,7 +181,12 @@ export default {
 
 			return this.$store.state.challenges.selectedChallenge
 		},
-		...mapState(['isEnded', 'isStatic', 'language']),
+		...mapState([
+			'isEnded',
+			'isStatic',
+			'language',
+			 
+		]),
 		tags() {
 			return this.challenge.tags
 				.map((tag) => tag.value)
@@ -287,7 +291,7 @@ export default {
 			})
 		},
 		async stopInstance() {
-				await this.$store.dispatch('challenges/deleteChallengeInstance', {
+			await this.$store.dispatch('challenges/deleteChallengeInstance', {
 				$axios: this.$axios,
 				id: this.challenge.id,
 			})
@@ -470,9 +474,7 @@ export default {
 	display: flex;
 
 	line-height: 1.6em;
-	.blured {
-		filter: blur(5px);
-	}
+
 	.description-column {
 		flex: 1 0 0;
 		padding: 0 0.5rem;
@@ -671,6 +673,17 @@ export default {
 		background-color: gray;
 	}
 }
+.instance {
+	position: relative;
+	display: flex;
+	align-items: center;
+	height: 50px;
+	margin-bottom: 10px;
+	.blured {
+		filter: blur(5px);
+	}
+}
+
 .instance-btn {
 	width: 100%;
 	min-height: 100%;
@@ -681,9 +694,9 @@ export default {
 	& > button {
 		position: relative;
 		min-width: 150px;
-		padding: 10px;
+		padding: 5px;
 		overflow: hidden;
-		flex: 0 0 150px;
+		flex: 0 0 200px;
 		background: gray;
 		font-size: 1.2rem;
 		border-radius: 5px;
@@ -712,7 +725,7 @@ export default {
 .quit_button {
 	background-color: red;
 	border-radius: 5px;
-	padding: 10px;
+	padding: 5px;
 	span {
 		display: flex;
 		align-items: center;
