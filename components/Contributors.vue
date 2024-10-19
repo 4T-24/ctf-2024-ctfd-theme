@@ -80,6 +80,7 @@ export default {}
 	.contributors {
 		margin-top: 20px;
 		display: flex;
+		gap: 20px;
 		align-self: center;
 		justify-content: center;
 		width: 100%;
