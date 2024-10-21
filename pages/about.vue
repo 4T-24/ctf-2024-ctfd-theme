@@ -110,15 +110,15 @@
 			</li>
 		</ul>
 
+		<p>
 		* Subscriptions offered by Offsec requires the individual to be at least 18
 		years old. For individuals between 16 and 18 years old, they will need to
 		provide a confirmation letter from their parent(s) or legal guardian. **
 		Infomaniak prizes are based on the amount of people in the team.
+		</p>
 
 		<h3>Staffs</h3>
-		<a href="https://4ts.fr" target="_blank" rel="noopener noreferrer">
-			<img src="@/static/logo.png" alt="" width="250px" />
-		</a>
+		<img src="@/static/logo.png" alt="" width="250px" />
 		<p>4T$ CTF is organized by 4T$, a group of CTF enjoyers.</p>
 		<p>
 			Below is the full list of 4T$ members who contributed to this 4T$ CTF in
