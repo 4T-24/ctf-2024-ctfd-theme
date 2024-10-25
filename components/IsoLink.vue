@@ -1,5 +1,5 @@
 <template>
-	<a v-if="isStatic" :href="to">
+	<a v-if="isStatic || isHref" :href="to">
 		<slot/>
 	</a>
 	<nuxt-link v-else :to="to">
@@ -15,6 +15,10 @@ export default {
 		to: {
 			required: true,
 			type: String,
+		},
+		isHref: {
+			type: Boolean,
+			default: false,
 		},
 	},
 	computed: {
