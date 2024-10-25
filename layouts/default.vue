@@ -56,7 +56,7 @@
 				</div>
 				<div v-else class="menu">
 					<div class="menu-item" v-if="isAdmin">
-						<iso-link to="/admin" isHref="true" class="menu-item">Admin Panel</iso-link>
+						<iso-link to="/admin" isHref class="menu-item">Admin Panel</iso-link>
 						<iso-link to="/notifications">Notifications</iso-link>
 					</div>
 					<div class="menu-item">

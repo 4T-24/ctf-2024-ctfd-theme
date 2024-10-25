@@ -6,7 +6,7 @@
 			<label for="checkbox">Hide solved</label>
 		</div>
 		<div v-if="isEnded" class="ended">
-			TSG CTF has been ended!<br />Thank you for your pariticipation!
+			4T$ CTF has been ended!<br />Thank you for your participation!
 		</div>
 		<div v-if="isStarted & !isEnded" class="challenges-container">
 			<div class="side-panel-category">

@@ -117,9 +117,10 @@
 
 <script>
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue';
-import {mapState} from 'vuex';
+import {mapState, mapGetters} from 'vuex';
 import IsoLink from '~/components/IsoLink.vue';
 import LiquidSpot from 'vue-material-design-icons/LiquidSpot.vue';
+
 
 export default {
 	components: {PulseLoader, IsoLink, LiquidSpot},
@@ -153,9 +154,16 @@ export default {
 		},
 	},
 	async mounted() {
+		console.log("mounted");
 		if (!this.isStatic) {
 			this.interval = setInterval(this.updateImgSrc, 60 * 1000);
 			await this.fetchBadgeUrl();
+		}
+
+		console.log(this.wsData);
+		if (this.wsData) {
+			console.log(this.wsData.instancer_base_url+"/api/v1/"+this.challenge.slug+"/"+this.wsData.instance_id+"/events");
+			this.websocket = new WebSocket(this.wsData.instancer_base_url+"/api/v1/"+this.challenge.slug+"/"+this.wsData.instance_id+"/events");
 		}
 	},
 	destroyed() {

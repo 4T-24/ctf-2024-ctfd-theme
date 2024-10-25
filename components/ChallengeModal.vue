@@ -151,7 +151,7 @@
 
 <script>
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import IsoLink from '~/components/IsoLink.vue'
 import LiquidSpot from 'vue-material-design-icons/LiquidSpot.vue'
 import Home from 'vue-material-design-icons/Home.vue'
@@ -171,6 +171,26 @@ export default {
 			default: false,
 		},
 	},
+	watch: {
+		display: function (newVal, oldVal) {
+			if (newVal) {
+				if (this.wsData) {
+					this.websocket = new WebSocket(this.wsData.instancer_base_url+"/api/v1/"+this.challenge.slug+"/"+this.wsData.instance_id+"/events");
+					let that = this;
+					this.websocket.onopen = function (event) {
+						that.websocket.send(that.wsData.token);
+					};
+					this.websocket.onmessage = function (event) {
+						// Example event.data :
+						// {"name":"Homelab ? More like Pwnlab !","status":"Running","timeout":4500,"endsAt":"2024-10-25T21:30:00Z","servers":[{"kind":"http","host":"main-8080-web-homelab-pwnlab-840f29afa042361d.ctf-test.4ts.fr","description":"NAS Web Interface"},{"kind":"http","host":"main-8079-web-homelab-pwnlab-840f29afa042361d.ctf-test.4ts.fr","description":"Web Shell for SSH access"}]}
+						that.handleEvent(JSON.parse(event.data));
+					};
+				}
+			} else {
+				this.websocket.close();
+			}
+		},
+	},
 	emits: ['closeModal'],
 	data() {
 		return {
@@ -183,10 +203,20 @@ export default {
 			badgeUrl: null,
 			yay: false,
 			boo: false,
+			websocket: null,
 		}
 	},
-	mounted() {},
+	mounted() {	},
 	computed: {
+		...mapGetters({
+			wsData: 'ws/getAll',
+		}),
+		...mapState([
+			'isEnded',
+			'isStatic',
+			'language',
+			'selectedChallengeInstance',
+		]),
 		challenge() {
 			console.log(this.$store.state.challenges.selectedChallenge)
 			console.log(this.$store.state.challenges.selectedChallengeInstance)
@@ -195,12 +225,6 @@ export default {
 		instance() {
 			return this.$store.state.challenges.selectedChallengeInstance
 		},
-		...mapState([
-			'isEnded',
-			'isStatic',
-			'language',
-			'selectedChallengeInstance',
-		]),
 		tags() {
 			return this.challenge.tags
 				.map((tag) => tag.value)
@@ -363,6 +387,9 @@ export default {
 				// const {data} = await this.$axios.get(`/api/v1/challenges/${this.challenge.id}/badge`);
 				// this.badgeUrl = data.badge_url;
 			}
+		},
+		async handleEvent(data) {
+			// Handle ws events here
 		},
 	},
 }
