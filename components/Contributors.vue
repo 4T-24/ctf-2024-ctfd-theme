@@ -39,25 +39,14 @@
 			</div>
 			<div>
 				<img
-					src="@/static/mada07.png"
+					src="@/static/lancelot.png"
 					alt=""
 					width="80px"
 					class="contributor_image"
 				/>
 
-				<p style="font-weight: bold; margin-bottom: 5px">Malo</p>
-				<p style="text-align: center">BackUp Infra</p>
-			</div>
-			<div>
-				<img
-					src="@/static/thib.png"
-					alt=""
-					width="80px"
-					class="contributor_image"
-				/>
-
-				<p style="font-weight: bold; margin-bottom: 5px">Thib</p>
-				<p style="text-align: center">BackUp Infra</p>
+				<p style="font-weight: bold; margin-bottom: 5px">Lancelot</p>
+				<p style="text-align: center">Infra</p>
 			</div>
 		</div>
 	</div>
