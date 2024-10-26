@@ -52,7 +52,7 @@
 						</div>
 					</div>
 				</div>
-
+				{{ instance }}
 				<div class="description">
 					<div
 						ref="description"
@@ -99,7 +99,7 @@
 							<span>Create Instance <Home /></span>
 						</button>
 						<button
-							v-else-if="instance.status == 'Starting'"
+							v-else-if="instance.status == 'Starting' || instanceIsCreating"
 							class="animation_background"
 						>
 							<span class="instance-loader" style="display: flex">
@@ -233,18 +233,7 @@ export default {
 	},
 	mounted() {	},
 	computed: {
-		...mapGetters({
-			wsData: 'ws/getAll',
-		}),
-		...mapState([
-			'isEnded',
-			'isStatic',
-			'language',
-			'selectedChallengeInstance',
-		]),
-		challenge() {
-			console.log(this.$store.state.challenges.selectedChallenge)
-			console.log(this.$store.state.challenges.selectedChallengeInstance)
+		challenge() {                                                                                                                            
 			return this.$store.state.challenges.selectedChallenge
 		},
 		instance() {
@@ -353,6 +342,16 @@ export default {
 				$axios: this.$axios,
 				id: this.challenge.id,
 			})
+			this.instanceIsCreating = true
+		},
+		async getInstance() {
+			await this.$store.dispatch(
+				'challenges/getSelectedChallengeInstanceInfos',
+				{
+					$axios: this.$axios,
+					id: this.challenge.id,
+				},
+			)
 		},
 		async stopInstance() {
 			await this.$store.dispatch('challenges/deleteChallengeInstance', {

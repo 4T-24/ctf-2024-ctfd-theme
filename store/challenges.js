@@ -16,7 +16,7 @@ export const state = () => ({
 	challenges: [],
 	selectedChallenge: null,
 	selectedChallengeInstance: {
-		status: 'Running',
+		status: 'Stopped',
 		servers: [
 			{
 				kind: 'http',
@@ -184,7 +184,7 @@ export const actions = {
 			`/api/v1/challenges/${id}/solves`,
 		)
 		if (headers['content-type'] === 'application/json') {
-			commit('setSelectedChallengeSolvesInfos', { data: data.data })
+			commit('setSelectedChallengeSolvesInfos', data.data)
 		} else {
 			const url = new URL(request.responseURL)
 			if (url.pathname === '/team') {
@@ -196,12 +196,12 @@ export const actions = {
 			}
 		}
 	},
-	async getSelectedChallengeInstanceInfos({ commit }, { $axios, id, i_id }) {
+	async getSelectedChallengeInstanceInfos({ commit }, { $axios, id }) {
 		const { data, headers, request } = await $axios.get(
 			`/api/v1/challenges/${id}/instance`,
 		)
 		if (headers['content-type'] === 'application/json') {
-			commit('setSelectedChallengeInstance', { data: data.data })
+			commit('setSelectedChallengeInstance', data.data)
 		} else {
 			const url = new URL(request.responseURL)
 			if (url.pathname === '/team') {
@@ -237,6 +237,10 @@ export const actions = {
 		}
 	},
 	async deleteChallengeInstance({ commit }, { $axios, id }) {
+		const { data2, headers2, request2 } = await fetch(
+			`/api/v1/challenges/2/instance`,
+			{ method: 'DELETE' },
+		)
 		const { data, headers, request } = await $axios.delete(
 			`/api/v1/challenges/${id}/instance`,
 			{

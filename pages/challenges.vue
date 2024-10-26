@@ -117,6 +117,7 @@ export default {
 		},
 	},
 	async mounted() {
+		console.log()
 		if (!this.isStatic && !this.isVerified) {
 			await this.$router.replace({
 				path: '/confirm',
