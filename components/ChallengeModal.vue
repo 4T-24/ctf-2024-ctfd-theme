@@ -71,17 +71,18 @@
 					>
 						<!-- For each servers in instance.servers, display instructions -->
 						<div v-for="server in instance.servers" class="instruction_container">
+							<p v-if="server.kind == 'http'">
+								{{ server.description }} :
+							</p>
 							<div class="instruction">
-								<!-- If kind is "http", put instruction before "https://server.host/" -->
-								<div v-if="server.kind == 'http'">
-									<a :href="'https://' + server.host" target="_blank" class="instance_link">
-										{{ server.description }}
+								<div v-if="server.kind == 'http'" class="tooltip">
+									<span class="tooltiptext" :id="'tooltip-'+server.host">Copy to clipboard</span>
+									<a v-html="$md.render('```bash\nhttps://'+server.host+'\n```')" @click="copyToClipboard('https://'+server.host, server.host)" style="cursor: pointer">
 									</a>
 								</div>
-								<!-- If kind is "tcp", there will be a server.instruction field, only show this, when clicking copy to clipboard the instructions -->
 								<div v-else-if="server.kind == 'tcp'" class="tooltip">
-									<span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
-									<a v-html="$md.render('```bash\n'+server.instructions+'\n```')" @click="copyToClipboard(server.instructions)" style="cursor: pointer">
+									<span class="tooltiptext" :id="'tooltip-'+server.host">Copy to clipboard</span>
+									<a v-html="$md.render('```bash\n'+server.instructions+'\n```')" @click="copyToClipboard(server.instructions, server.host)" style="cursor: pointer">
 									</a>
 								</div>	
 							</div>
@@ -412,11 +413,14 @@ export default {
 				// this.badgeUrl = data.badge_url;
 			}
 		},
-		copyToClipboard(text) {
+		copyToClipboard(text, id) {
 			navigator.clipboard.writeText(text)
 			
-			var tooltip = document.getElementById("myTooltip");
+			var tooltip = document.getElementById("tooltip-"+id);
 			tooltip.innerHTML = "Copied !";
+			setTimeout(() => {
+				tooltip.innerHTML = "Copy to clipboard";
+			}, 1000);
 		},
 		connectWebsocket() {
 			this.websocket = new WebSocket(this.wsData.instancer_base_url + "/api/v1/" + this.challenge.slug + "/" + this.wsData.instance_id + "/events");
@@ -430,15 +434,6 @@ export default {
 			this.websocket.onmessage = async function (event) {
 				let instance = JSON.parse(event.data);
 				console.log("[WS] Received data: ", instance);
-				// Add server tcp for debugging
-				if (instance.status == 'Running') {
-					instance.servers.push({
-						kind: 'tcp',
-						host: instance.host,
-						instructions: "openssl s_client -connect " + instance.host + ":443",
-						description: 'Connect to this server with netcat',
-					});
-				}
 				await that.$store.commit('challenges/setSelectedChallengeInstance', { data: instance })
 				console.log("[WS] Instance updated: ", that.instance);
 			};
@@ -835,7 +830,7 @@ export default {
 .turn_off_button {
 	background-color: red;
 	border-radius: 5px;
-	padding: 5px;
+	padding: 10px;
 	margin-top: 10px;
 	span {
 		display: flex;
@@ -871,45 +866,49 @@ export default {
 	padding: 10px;
 }
 .instance_link {
-	color: white;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	p {
+		margin: 0;
+	}
 }
-
-
 .tooltip {
 	position: relative;
 	display: inline-block;
-  }
+}
   
 .tooltip .tooltiptext {
-visibility: hidden;
-width: 140px;
-background-color: #555;
-color: #fff;
-text-align: center;
-border-radius: 6px;
-padding: 5px;
-position: absolute;
-z-index: 1;
-bottom: 150%;
-left: 50%;
-margin-left: -75px;
-opacity: 0;
-transition: opacity 0.3s;
+	visibility: hidden;
+	width: 140px;
+	background-color: #555;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 5px;
+	position: absolute;
+	z-index: 1;
+	bottom: 150%;
+	left: 50%;
+	margin-left: -75px;
+	opacity: 0;
+	transition: opacity 0.3s;
 }
 
 .tooltip .tooltiptext::after {
-content: "";
-position: absolute;
-top: 100%;
-left: 50%;
-margin-left: -5px;
-border-width: 5px;
-border-style: solid;
-border-color: #555 transparent transparent transparent;
+	content: "";
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	margin-left: -5px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: #555 transparent transparent transparent;
 }
 
 .tooltip:hover .tooltiptext {
-visibility: visible;
-opacity: 1;
+	visibility: visible;
+	opacity: 1;
 }
 </style>
