@@ -1,14 +1,14 @@
 <template>
 	<section class="challenges">
 		<h2 class="title"><span>Challenges</span></h2>
-		<div v-if="isStarted" class="hide-solved">
+		<div v-if="isStarted || isAdmin" class="hide-solved">
 			<input id="checkbox" v-model="isHideSolved" type="checkbox" />
 			<label for="checkbox">Hide solved</label>
 		</div>
 		<div v-if="isEnded" class="ended">
 			4T$ CTF has been ended!<br />Thank you for your participation!
 		</div>
-		<div v-if="isStarted & !isEnded" class="challenges-container">
+		<div v-if="isStarted || isAdmin" class="challenges-container">
 			<div class="side-panel-category">
 				<div>
 					<h3>Categories</h3>
@@ -99,6 +99,7 @@ export default {
 			isStatic: 'isStatic',
 			isLoggedIn: 'isLoggedIn',
 			isStarted: 'isStarted',
+			isAdmin: 'isAdmin',
 			// isEnded: 'isEnded', TODO
 			isEnded: false,
 			isVerified: 'isVerified',

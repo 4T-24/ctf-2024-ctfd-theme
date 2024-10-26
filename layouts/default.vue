@@ -26,7 +26,7 @@
 							<iso-link to="/scoreboard" class="dropdown-menu-item"
 								>Scoreboard</iso-link
 							>
-							<iso-link to="/challenges" class="dropdown-menu-item"
+							<iso-link to="/challenges" class="dropdown-menu-item" v-if="isStarted || isAdmin"
 								>Challenges</iso-link
 							>
 							<iso-link
@@ -68,7 +68,7 @@
 					<div class="menu-item" v-if="isStarted">
 						<iso-link to="/scoreboard">Scoreboard</iso-link>
 					</div>
-					<div class="menu-item" v-if="isStarted">
+					<div class="menu-item" v-if="isStarted || isAdmin">
 						<iso-link to="/challenges">Challenges</iso-link>
 					</div>
 					<div

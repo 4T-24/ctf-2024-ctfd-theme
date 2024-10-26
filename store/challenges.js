@@ -237,7 +237,6 @@ export const actions = {
 		}
 	},
 	async deleteChallengeInstance({ commit }, { $axios, id }) {
-		console.log('deleteChallengeInstance')
 		const { data, headers, request } = await $axios.delete(
 			`/api/v1/challenges/${id}/instance`,
 			{
