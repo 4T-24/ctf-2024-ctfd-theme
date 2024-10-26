@@ -64,15 +64,31 @@
 					/>
 				</div>
 
-				<div v-if="challenge.type != 'standard'" class="instance">
+				<div v-if="challenge.type == 'i_dynamic' || challenge.type == 'i_static'" class="instance_container">
 					<div
 						v-if="instance.status == 'Running'"
 						:class="{ blured: instance.status != 'Running' }"
 					>
-						<p>Informations Instanciate</p>
+						<!-- For each servers in instance.servers, display instructions -->
+						<div v-for="server in instance.servers" class="instruction_container">
+							<div class="instruction">
+								<!-- If kind is "http", put instruction before "https://server.host/" -->
+								<div v-if="server.kind == 'http'">
+									<a :href="'https://' + server.host" target="_blank" class="instance_link">
+										{{ server.description }}
+									</a>
+								</div>
+								<!-- If kind is "tcp", there will be a server.instruction field, only show this, when clicking copy to clipboard the instructions -->
+								<div v-else-if="server.kind == 'tcp'" class="tooltip">
+									<span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
+									<a v-html="$md.render('```bash\n'+server.instructions+'\n```')" @click="copyToClipboard(server.instructions)" style="cursor: pointer">
+									</a>
+								</div>	
+							</div>
+						</div>
 					</div>
 
-					<div :class="{ animation_background: !test, 'instance-btn': true }">
+					<div :class="{ animation_background: !test, 'instance-btn': !instance || instance.status == 'Stopped' || instance.status == 'Starting' }">
 						<button
 							v-if="!instance || instance.status == 'Stopped'"
 							@click="createInstance()"
@@ -95,6 +111,30 @@
 							</span>
 						</button>
 					</div>
+
+					<button
+						class="turn_off_button"
+						v-if="instance.status == 'Running'"
+						@click="stopInstance()"
+					>
+						<span>Stop Instance<PowerSettings /></span>
+					</button>
+
+					<div :class="{ animation_background: !test, 'instance-btn': !instance || instance.status == 'Stopping' }">
+						<button
+							v-if="instance.status == 'Stopping'"
+							class="animation_background"
+						>
+							<span class="instance-loader" style="display: flex">
+								<pulse-loader
+									color="#fff"
+									size="6px"
+									style="margin-left: 3px"
+								/>
+								Stopping
+							</span>
+						</button>
+					</div>
 				</div>
 				<div class="attachments">
 					<a
@@ -107,15 +147,6 @@
 					>
 						{{ getFileName(file) }}
 					</a>
-				</div>
-				<div v-if="challenge.type != 'standard'" class="">
-					<button
-						class="quit_button"
-						v-if="instance.status == 'Running'"
-						@click="stopInstance()"
-					>
-						<span>Stop Instance<PowerSettings /></span>
-					</button>
 				</div>
 			</div>
 
@@ -174,20 +205,13 @@ export default {
 	watch: {
 		display: function (newVal, oldVal) {
 			if (newVal) {
-				if (this.wsData) {
-					this.websocket = new WebSocket(this.wsData.instancer_base_url+"/api/v1/"+this.challenge.slug+"/"+this.wsData.instance_id+"/events");
-					let that = this;
-					this.websocket.onopen = function (event) {
-						that.websocket.send(that.wsData.token);
-					};
-					this.websocket.onmessage = function (event) {
-						// Example event.data :
-						// {"name":"Homelab ? More like Pwnlab !","status":"Running","timeout":4500,"endsAt":"2024-10-25T21:30:00Z","servers":[{"kind":"http","host":"main-8080-web-homelab-pwnlab-840f29afa042361d.ctf-test.4ts.fr","description":"NAS Web Interface"},{"kind":"http","host":"main-8079-web-homelab-pwnlab-840f29afa042361d.ctf-test.4ts.fr","description":"Web Shell for SSH access"}]}
-						that.handleEvent(JSON.parse(event.data));
-					};
-				}
+				this.connectWebsocket();
 			} else {
-				this.websocket.close();
+				try {
+					this.websocket.close();
+				} catch (e) {
+					console.error("[WS] Error: ", e);
+				}
 			}
 		},
 	},
@@ -223,7 +247,7 @@ export default {
 			return this.$store.state.challenges.selectedChallenge
 		},
 		instance() {
-			return this.$store.state.challenges.selectedChallengeInstance
+			return this.$store.state.challenges.selectedChallengeInstance.data || {}
 		},
 		tags() {
 			return this.challenge.tags
@@ -388,8 +412,49 @@ export default {
 				// this.badgeUrl = data.badge_url;
 			}
 		},
-		async handleEvent(data) {
-			// Handle ws events here
+		copyToClipboard(text) {
+			navigator.clipboard.writeText(text)
+			
+			var tooltip = document.getElementById("myTooltip");
+			tooltip.innerHTML = "Copied !";
+		},
+		connectWebsocket() {
+			this.websocket = new WebSocket(this.wsData.instancer_base_url + "/api/v1/" + this.challenge.slug + "/" + this.wsData.instance_id + "/events");
+			let that = this;
+
+			this.websocket.onopen = function (event) {
+				that.websocket.send(that.wsData.token);
+				console.log("[WS] Connected to WebSocket");
+			};
+
+			this.websocket.onmessage = async function (event) {
+				let instance = JSON.parse(event.data);
+				console.log("[WS] Received data: ", instance);
+				// Add server tcp for debugging
+				if (instance.status == 'Running') {
+					instance.servers.push({
+						kind: 'tcp',
+						host: instance.host,
+						instructions: "openssl s_client -connect " + instance.host + ":443",
+						description: 'Connect to this server with netcat',
+					});
+				}
+				await that.$store.commit('challenges/setSelectedChallengeInstance', { data: instance })
+				console.log("[WS] Instance updated: ", that.instance);
+			};
+
+			this.websocket.onerror = function (event) {
+				console.error("[WS] Error: ", event);
+			};
+
+			this.websocket.onclose = function (event) {
+				console.warn("[WS] Connection closed: ", event);
+				console.log("[WS] Reconnecting...");
+				// Attempt to reconnect after a delay (e.g., 5 seconds)
+				setTimeout(() => {
+					connectWebSocket();
+				}, 5000);
+			};
 		},
 	},
 }
@@ -715,12 +780,15 @@ export default {
 		background-color: gray;
 	}
 }
-.instance {
-	position: relative;
+
+.instance_container {
 	display: flex;
+	flex-direction: column;
+	justify-content: center;
 	align-items: center;
-	height: 50px;
-	margin-bottom: 10px;
+	&.blured {
+		filter: blur(5px);
+	}
 	.blured {
 		filter: blur(5px);
 	}
@@ -764,10 +832,11 @@ export default {
 		animation: 1s slidein;
 	}
 }
-.quit_button {
+.turn_off_button {
 	background-color: red;
 	border-radius: 5px;
 	padding: 5px;
+	margin-top: 10px;
 	span {
 		display: flex;
 		align-items: center;
@@ -784,5 +853,63 @@ export default {
 	.server-status {
 		margin-bottom: 0.2rem;
 	}
+}
+.instruction_container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.instruction {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: #ffffff09;
+	border-radius: 10px;
+	margin: 10px 0;
+	padding: 10px;
+}
+.instance_link {
+	color: white;
+}
+
+
+.tooltip {
+	position: relative;
+	display: inline-block;
+  }
+  
+.tooltip .tooltiptext {
+visibility: hidden;
+width: 140px;
+background-color: #555;
+color: #fff;
+text-align: center;
+border-radius: 6px;
+padding: 5px;
+position: absolute;
+z-index: 1;
+bottom: 150%;
+left: 50%;
+margin-left: -75px;
+opacity: 0;
+transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+content: "";
+position: absolute;
+top: 100%;
+left: 50%;
+margin-left: -5px;
+border-width: 5px;
+border-style: solid;
+border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+visibility: visible;
+opacity: 1;
 }
 </style>
