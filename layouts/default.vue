@@ -26,7 +26,10 @@
 							<iso-link to="/scoreboard" class="dropdown-menu-item"
 								>Scoreboard</iso-link
 							>
-							<iso-link to="/challenges" class="dropdown-menu-item" v-if="isStarted || isAdmin"
+							<iso-link
+								to="/challenges"
+								class="dropdown-menu-item"
+								v-if="isStarted || isAdmin"
 								>Challenges</iso-link
 							>
 							<iso-link
@@ -56,7 +59,9 @@
 				</div>
 				<div v-else class="menu">
 					<div class="menu-item" v-if="isAdmin">
-						<iso-link to="/admin" isHref class="menu-item">Admin Panel</iso-link>
+						<iso-link to="/admin" isHref class="menu-item"
+							>Admin Panel</iso-link
+						>
 						<iso-link to="/notifications">Notifications</iso-link>
 					</div>
 					<div class="menu-item">
@@ -391,7 +396,7 @@ hr {
 	background: linear-gradient(
 		180deg,
 		rgba(0, 0, 0, 0.8),
-		rgba(0, 0, 0, 0.3) 70%,
+		rgba(0, 0, 0, 0.5) 60%,
 		rgba(0, 0, 0, 0) 100%
 	);
 	color: rgba(255, 255, 255, 0.8);

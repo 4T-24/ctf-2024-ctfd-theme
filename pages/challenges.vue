@@ -45,7 +45,10 @@
 									({ solved_by_me }) => !isHideSolved || !solved_by_me,
 								)"
 								:key="challenge.id"
-								:class="challengeTileClass(challenge.solved_by_me)"
+								:class="{
+									'challenge-tile': true,
+									'challenge-tile-completed': challenge.solved_by_me,
+								}"
 								@click="openModal(challenge.id, challenge.solved_by_me)"
 							>
 								<h3>{{ challenge.name }}</h3>
@@ -119,7 +122,6 @@ export default {
 		},
 	},
 	async mounted() {
-		console.log()
 		if (!this.isStatic && !this.isVerified) {
 			await this.$router.replace({
 				path: '/confirm',
@@ -166,12 +168,7 @@ export default {
 			})
 			this.isChallengeModalOpen = true
 		},
-		challengeTileClass(solved_by_me) {
-			return {
-				'challenge-tile': true,
-				'challenge-tile-completed': solved_by_me,
-			}
-		},
+
 		toggleFilter(index) {
 			if (this.categoriesFilter[index]) {
 				this.filteredCategories.push(this.categories[index].name)
@@ -367,7 +364,7 @@ export default {
 	.category-challenges-title {
 		font-size: 1.4rem;
 		color: rgba(100, 233, 160, 0.692);
-		font-weight: bold;
+		font-weight: bolder;
 	}
 
 	.challenge-tile {
@@ -383,14 +380,15 @@ export default {
 		background-color: #333;
 		border-radius: 10px;
 		color: white;
-		font-weight: bold;
+
+		font-weight: 700;
 		&:hover {
 			background-color: #4e4e4e;
 		}
 	}
 
 	.challenge-tile-completed {
-		background-color: #14a807;
+		background-color: #0f7007;
 	}
 	.challenge-tile-completed:hover {
 		background-color: #14a807;

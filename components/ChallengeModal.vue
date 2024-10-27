@@ -29,7 +29,6 @@
 					</span>
 				</span>
 			</marquee>
-
 			<div v-if="challenge" class="details">
 				<div
 					class="solve-count"
@@ -52,7 +51,6 @@
 						</div>
 					</div>
 				</div>
-				{{ instance }}
 				<div class="description">
 					<div
 						ref="description"
@@ -113,7 +111,6 @@
 
 					<div
 						:class="{
-							animation_background: !test,
 							'instance-btn':
 								!instance ||
 								instance.status == 'Stopped' ||
@@ -153,13 +150,12 @@
 
 					<div
 						:class="{
-							animation_background: !test,
 							'instance-btn': !instance || instance.status == 'Stopping',
 						}"
 					>
 						<button
 							v-if="instance.status == 'Stopping'"
-							class="animation_background"
+							class="animation_background_red"
 						>
 							<span class="instance-loader" style="display: flex">
 								<pulse-loader
@@ -240,6 +236,7 @@ export default {
 	},
 	watch: {
 		display: function (newVal, oldVal) {
+			this.getInstance()
 			if (newVal) {
 				this.connectWebsocket()
 			} else {
@@ -255,7 +252,6 @@ export default {
 	data() {
 		return {
 			showButton: false,
-			test: true,
 			docState: 'saved',
 			isOpen: false,
 			flagText: '',
@@ -827,6 +823,15 @@ export default {
 	}
 }
 
+@keyframes background_change_red {
+	from {
+		background-color: red;
+	}
+	to {
+		background-color: gray;
+	}
+}
+
 .instance_container {
 	display: flex;
 	flex-direction: column;
@@ -842,7 +847,7 @@ export default {
 
 .instance-btn {
 	width: 100%;
-	min-height: 100%;
+
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -850,6 +855,7 @@ export default {
 	& > button {
 		position: relative;
 		min-width: 150px;
+		height: 40px;
 		padding: 5px;
 		overflow: hidden;
 		flex: 0 0 200px;
@@ -858,7 +864,8 @@ export default {
 		border-radius: 5px;
 		& > span {
 			display: flex;
-			justify-content: space-between;
+			justify-content: center;
+			gap: 5px;
 			align-items: center;
 			margin-right: 10px;
 		}
@@ -866,15 +873,14 @@ export default {
 			cursor: default;
 		}
 	}
-	.animation_background {
-		animation: 0.5s linear background_change;
+	.animation_background_green {
+		animation: 0.5s linear background_change_green;
+	}
+	.animation_background_red {
+		animation: 0.5s linear background_change_red;
 	}
 	.instance-loader {
 		position: relative;
-		& > div {
-			display: flex;
-			align-items: center;
-		}
 		animation: 1s slidein;
 	}
 }
