@@ -201,7 +201,7 @@ export const actions = {
 			`/api/v1/challenges/${id}/instance`,
 		)
 		if (headers['content-type'] === 'application/json') {
-			commit('setSelectedChallengeInstance', data.data)
+			commit('setSelectedChallengeInstance', { data: data.data })
 		} else {
 			const url = new URL(request.responseURL)
 			if (url.pathname === '/team') {
@@ -237,18 +237,14 @@ export const actions = {
 		}
 	},
 	async deleteChallengeInstance({ commit }, { $axios, id }) {
-		const { data2, headers2, request2 } = await fetch(
-			`/api/v1/challenges/2/instance`,
-			{ method: 'DELETE' },
-		)
 		const { data, headers, request } = await $axios.delete(
 			`/api/v1/challenges/${id}/instance`,
 			{
 				headers: {
 					'content-type': 'application/json',
 				},
-				data: { thisis: 'required' }
-			}, 
+				data: { thisis: 'required' },
+			},
 		)
 
 		if (headers['content-type'] === 'application/json') {

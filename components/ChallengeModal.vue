@@ -64,32 +64,62 @@
 					/>
 				</div>
 
-				<div v-if="challenge.type == 'i_dynamic' || challenge.type == 'i_static'" class="instance_container">
+				<div
+					v-if="challenge.type == 'i_dynamic' || challenge.type == 'i_static'"
+					class="instance_container"
+				>
 					<div
 						v-if="instance.status == 'Running'"
 						:class="{ blured: instance.status != 'Running' }"
 					>
 						<!-- For each servers in instance.servers, display instructions -->
-						<div v-for="server in instance.servers" class="instruction_container">
-							<p v-if="server.kind == 'http'">
-								{{ server.description }} :
-							</p>
+						<div
+							v-for="server in instance.servers"
+							class="instruction_container"
+						>
+							<p v-if="server.kind == 'http'">{{ server.description }} :</p>
 							<div class="instruction">
 								<div v-if="server.kind == 'http'" class="tooltip">
-									<span class="tooltiptext" :id="'tooltip-'+server.host">Copy to clipboard</span>
-									<a v-html="$md.render('```bash\nhttps://'+server.host+'\n```')" @click="copyToClipboard('https://'+server.host, server.host)" style="cursor: pointer">
+									<span class="tooltiptext" :id="'tooltip-' + server.host"
+										>Copy to clipboard</span
+									>
+									<a
+										v-html="
+											$md.render('```bash\nhttps://' + server.host + '\n```')
+										"
+										@click="
+											copyToClipboard('https://' + server.host, server.host)
+										"
+										style="cursor: pointer"
+									>
 									</a>
 								</div>
 								<div v-else-if="server.kind == 'tcp'" class="tooltip">
-									<span class="tooltiptext" :id="'tooltip-'+server.host">Copy to clipboard</span>
-									<a v-html="$md.render('```bash\n'+server.instructions+'\n```')" @click="copyToClipboard(server.instructions, server.host)" style="cursor: pointer">
+									<span class="tooltiptext" :id="'tooltip-' + server.host"
+										>Copy to clipboard</span
+									>
+									<a
+										v-html="
+											$md.render('```bash\n' + server.instructions + '\n```')
+										"
+										@click="copyToClipboard(server.instructions, server.host)"
+										style="cursor: pointer"
+									>
 									</a>
-								</div>	
+								</div>
 							</div>
 						</div>
 					</div>
 
-					<div :class="{ animation_background: !test, 'instance-btn': !instance || instance.status == 'Stopped' || instance.status == 'Starting' }">
+					<div
+						:class="{
+							animation_background: !test,
+							'instance-btn':
+								!instance ||
+								instance.status == 'Stopped' ||
+								instance.status == 'Starting',
+						}"
+					>
 						<button
 							v-if="!instance || instance.status == 'Stopped'"
 							@click="createInstance()"
@@ -99,7 +129,7 @@
 							<span>Create Instance <Home /></span>
 						</button>
 						<button
-							v-else-if="instance.status == 'Starting' || instanceIsCreating"
+							v-else-if="instance.status == 'Starting'"
 							class="animation_background"
 						>
 							<span class="instance-loader" style="display: flex">
@@ -121,7 +151,12 @@
 						<span>Stop Instance<PowerSettings /></span>
 					</button>
 
-					<div :class="{ animation_background: !test, 'instance-btn': !instance || instance.status == 'Stopping' }">
+					<div
+						:class="{
+							animation_background: !test,
+							'instance-btn': !instance || instance.status == 'Stopping',
+						}"
+					>
 						<button
 							v-if="instance.status == 'Stopping'"
 							class="animation_background"
@@ -206,12 +241,12 @@ export default {
 	watch: {
 		display: function (newVal, oldVal) {
 			if (newVal) {
-				this.connectWebsocket();
+				this.connectWebsocket()
 			} else {
 				try {
-					this.websocket.close();
+					this.websocket.close()
 				} catch (e) {
-					console.error("[WS] Error: ", e);
+					console.error('[WS] Error: ', e)
 				}
 			}
 		},
@@ -231,9 +266,18 @@ export default {
 			websocket: null,
 		}
 	},
-	mounted() {	},
+	mounted() {},
 	computed: {
-		challenge() {                                                                                                                            
+		...mapGetters({
+			wsData: 'ws/getAll',
+		}),
+		...mapState([
+			'isEnded',
+			'isStatic',
+			'language',
+			'selectedChallengeInstance',
+		]),
+		challenge() {
 			return this.$store.state.challenges.selectedChallenge
 		},
 		instance() {
@@ -342,7 +386,6 @@ export default {
 				$axios: this.$axios,
 				id: this.challenge.id,
 			})
-			this.instanceIsCreating = true
 		},
 		async getInstance() {
 			await this.$store.dispatch(
@@ -414,41 +457,50 @@ export default {
 		},
 		copyToClipboard(text, id) {
 			navigator.clipboard.writeText(text)
-			
-			var tooltip = document.getElementById("tooltip-"+id);
-			tooltip.innerHTML = "Copied !";
+
+			var tooltip = document.getElementById('tooltip-' + id)
+			tooltip.innerHTML = 'Copied !'
 			setTimeout(() => {
-				tooltip.innerHTML = "Copy to clipboard";
-			}, 1000);
+				tooltip.innerHTML = 'Copy to clipboard'
+			}, 1000)
 		},
 		connectWebsocket() {
-			this.websocket = new WebSocket(this.wsData.instancer_base_url + "/api/v1/" + this.challenge.slug + "/" + this.wsData.instance_id + "/events");
-			let that = this;
+			this.websocket = new WebSocket(
+				this.wsData.instancer_base_url +
+					'api/v1/' +
+					this.challenge.slug +
+					'/' +
+					this.wsData.instance_id +
+					'/events',
+			)
+			let that = this
 
 			this.websocket.onopen = function (event) {
-				that.websocket.send(that.wsData.token);
-				console.log("[WS] Connected to WebSocket");
-			};
+				that.websocket.send(that.wsData.token)
+				console.log('[WS] Connected to WebSocket')
+			}
 
 			this.websocket.onmessage = async function (event) {
-				let instance = JSON.parse(event.data);
-				console.log("[WS] Received data: ", instance);
-				await that.$store.commit('challenges/setSelectedChallengeInstance', { data: instance })
-				console.log("[WS] Instance updated: ", that.instance);
-			};
+				let instance = JSON.parse(event.data)
+				console.log('[WS] Received data: ', instance)
+				await that.$store.commit('challenges/setSelectedChallengeInstance', {
+					data: instance,
+				})
+				console.log('[WS] Instance updated: ', that.instance)
+			}
 
 			this.websocket.onerror = function (event) {
-				console.error("[WS] Error: ", event);
-			};
+				console.error('[WS] Error: ', event)
+			}
 
 			this.websocket.onclose = function (event) {
-				console.warn("[WS] Connection closed: ", event);
-				console.log("[WS] Reconnecting...");
+				console.warn('[WS] Connection closed: ', event)
+				console.log('[WS] Reconnecting...')
 				// Attempt to reconnect after a delay (e.g., 5 seconds)
 				setTimeout(() => {
-					connectWebSocket();
-				}, 5000);
-			};
+					connectWebSocket()
+				}, 5000)
+			}
 		},
 	},
 }
@@ -877,7 +929,7 @@ export default {
 	position: relative;
 	display: inline-block;
 }
-  
+
 .tooltip .tooltiptext {
 	visibility: hidden;
 	width: 140px;
@@ -896,7 +948,7 @@ export default {
 }
 
 .tooltip .tooltiptext::after {
-	content: "";
+	content: '';
 	position: absolute;
 	top: 100%;
 	left: 50%;

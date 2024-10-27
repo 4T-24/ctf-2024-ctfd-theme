@@ -38,6 +38,7 @@
 						class="category-challenges"
 					>
 						<h3 class="category-challenges-title">{{ category.name }}</h3>
+
 						<div>
 							<div
 								v-for="challenge in category.challenges.filter(
@@ -47,7 +48,8 @@
 								:class="challengeTileClass(challenge.solved_by_me)"
 								@click="openModal(challenge.id, challenge.solved_by_me)"
 							>
-								{{ challenge.name }}
+								<h3>{{ challenge.name }}</h3>
+								<p>{{ challenge.value }}</p>
 							</div>
 						</div>
 					</div>
@@ -374,7 +376,9 @@ export default {
 		width: 30%;
 		cursor: pointer;
 		display: flex;
+		flex-direction: column;
 		align-items: center;
+		gap: 5px;
 		justify-content: center;
 		background-color: #333;
 		border-radius: 10px;
