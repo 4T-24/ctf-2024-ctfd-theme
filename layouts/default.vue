@@ -10,7 +10,7 @@
 					<div v-on-clickaway="onClickaway" class="menu-item dropdown">
 						<div class="dropdown-trigger" @click="isDropping = !isDropping">
 							<div class="teamname">
-								{{ team && team.name }}
+								{{ user && user.name }}
 							</div>
 						</div>
 						<div
@@ -33,12 +33,11 @@
 								>Challenges</iso-link
 							>
 							<iso-link
-								v-if="(isStarted || isAdmin) && !isStatic"
+								v-if="!isStatic"
 								:to="isInTeam ? `/teams/${team && team.id}` : '/team'"
-								class="dropdown-menu-item"
+								class="menu-item" 
+								>Team</iso-link
 							>
-								Team
-							</iso-link>
 							<iso-link
 								v-if="!isStatic"
 								to="/settings"
@@ -74,7 +73,6 @@
 						<iso-link to="/scoreboard">Scoreboard</iso-link>
 					</div>
 					<iso-link
-						v-if="isStarted || isAdmin"
 						:to="isInTeam ? `/teams/${team && team.id}` : '/team'"
 						class="menu-item" 
 						>Team</iso-link
