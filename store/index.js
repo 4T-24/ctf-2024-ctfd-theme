@@ -390,7 +390,7 @@ export const actions = {
 				commit('setIsInTeam', true, { root: true })
 				const user = rootState.user.id
 				const isCaptain = data.data.captain_id === user
-				commit('setIsTeamCaptain', !isCaptain, { root: true })
+				commit('setIsTeamCaptain', isCaptain, { root: true })
 			}
 		} else {
 			commit('setIsInTeam', false, { root: true })
