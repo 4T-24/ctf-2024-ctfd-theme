@@ -69,7 +69,7 @@ export default {
 			let page = 1
 			while (true) {
 				const { data } = await axios.get(
-					'https://score.ctf.tsg.ne.jp/api/v1/teams',
+					'https://ctf.4ts.fr/api/v1/teams',
 					{ params: { page } },
 				)
 				teams.push(...data.data)
@@ -84,7 +84,7 @@ export default {
 	},
 
 	axios: {
-		baseURL: 'https://score.ctf.tsg.ne.jp/',
+		baseURL: 'https://ctf.4ts.fr/',
 		browserBaseURL: '/',
 	},
 

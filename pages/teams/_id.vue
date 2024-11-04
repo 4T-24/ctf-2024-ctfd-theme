@@ -68,7 +68,7 @@ const formatOrdinals = (i) => {
 export default {
 	components: {PulseLoader, IsoTimeago, CheckCircle},
 	async asyncData(context) {
-		if (isStarted) {
+		if (this.isStarted) {
 			const [team] = await Promise.all([
 				context.store.dispatch('teams/getTeam', {...context, id: context.route.params.id}),
 				context.store.dispatch('scoreboard/updateScoreboard', context),
@@ -95,7 +95,7 @@ export default {
 			return this.teams.get(parseInt(this.$route.params.id)) || {};
 		},
 		score(context) {
-			if (isStarted) {
+			if (this.isStarted) {
 				return this.$store.getters['scoreboard/getScore'](parseInt(this.$route.params.id)) || {};
 			} else {
 				return {};
