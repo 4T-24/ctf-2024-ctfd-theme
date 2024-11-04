@@ -5,8 +5,9 @@ export const state = () => ({
 	csrfToken: undefined,
 	isLoggedIn: true,
 	isInTeam: true,
-	isStarted: true,
+	isStarted: false,
 	isEnded: false,
+	isPaused: false,
 	isVerified: true,
 	isStatic: null,
 	isPushEnabled: true,
@@ -299,6 +300,9 @@ export const mutations = {
 	setIsEnded(s, payload) {
 		s.isEnded = payload
 	},
+	setIsPaused(s, payload) {
+		s.isPaused = payload
+	},
 	setIsVerified(s, payload) {
 		s.isVerified = payload
 	},
@@ -398,7 +402,8 @@ export const actions = {
 		if (headers['content-type'] === 'application/json') {
 			commit('setDate', data.data)
 			commit('setIsStarted', Date.now() > new Date(data.data.start).getTime())
-			commit('setIsEnded', Date.now() > new Date(data.data.start).getTime())
+			commit('setIsEnded', Date.now() > new Date(data.data.end).getTime())
+			commit('setIsPaused', Date.now() > new Date(data.data.freeze).getTime())
 			// commit('setIsVerified', data.data.is_verified)
 		} else {
 			commit('setIsLoggedIn', false, { root: true })

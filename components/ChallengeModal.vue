@@ -354,7 +354,7 @@ export default {
 			}
 
 			if (this.isEnded) {
-				return 'Contest has ben ended'
+				return 'Contest has ended'
 			}
 
 			return 'Enter your flag here ...'
