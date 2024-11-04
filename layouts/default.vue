@@ -73,6 +73,11 @@
 					<div class="menu-item" v-if="isStarted">
 						<iso-link to="/scoreboard">Scoreboard</iso-link>
 					</div>
+					<iso-link
+						:to="isInTeam ? `/teams/${team && team.id}` : '/team'"
+						class="menu-item" 
+						>Team</iso-link
+					>
 					<div class="menu-item" v-if="isStarted || isAdmin">
 						<iso-link to="/challenges">Challenges</iso-link>
 					</div>
@@ -91,11 +96,6 @@
 							class="dropdown-menu"
 							@click="onClickDropdown"
 						>
-							<iso-link
-								:to="isInTeam ? `/teams/${team && team.id}` : '/team'"
-								class="dropdown-menu-item"
-								>Team</iso-link
-							>
 							<iso-link to="/settings" class="dropdown-menu-item"
 								>Settings</iso-link
 							>
