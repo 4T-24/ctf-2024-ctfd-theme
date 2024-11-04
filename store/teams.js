@@ -14,11 +14,16 @@ export const mutations = {
 
 export const actions = {
 	async getTeam({commit, dispatch, rootState}, {$axios, id}) {
-		const [{data: team, headers}, {data: solves}] = await Promise.all([
-			$axios.get(`/api/v1/teams/${id}`),
-			$axios.get(`/api/v1/teams/${id}/solves`),
-		]);
+		const {data: team, headers} = await $axios.get(`/api/v1/teams/${id}`);
 		if (headers['content-type'] === 'application/json') {
+			let solves = {data: []};
+			try {
+				let resp = await $axios.get(`/api/v1/teams/${id}/solves`);
+				solves = resp.data;
+			} catch (e) {
+				solves = {data: []};
+			}
+
 			const teamData = {
 				...team.data,
 				solves: solves.data,

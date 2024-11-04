@@ -132,6 +132,7 @@
 					class="form-control"
 					type="text"
 					name="name"
+					:disabled="!isTeamCaptain"
 				/>
 			</div>
 			<div class="form-group">
@@ -142,6 +143,7 @@
 					class="form-control"
 					type="password"
 					name="confirm"
+					:disabled="!isTeamCaptain"
 				/>
 			</div>
 			<div class="form-group">
@@ -152,6 +154,7 @@
 					class="form-control"
 					type="password"
 					name="password"
+					:disabled="!isTeamCaptain"
 				/>
 			</div>
 			<div class="form-group">
@@ -162,6 +165,7 @@
 					class="form-control"
 					type="text"
 					name="affiliation"
+					:disabled="!isTeamCaptain"
 				/>
 			</div>
 			<div class="form-group">
@@ -172,6 +176,7 @@
 					class="form-control"
 					type="url"
 					name="website"
+					:disabled="!isTeamCaptain"
 				/>
 			</div>
 			<div class="form-group">
@@ -181,6 +186,7 @@
 					v-model="teamForm.country"
 					class="form-control"
 					name="country"
+					:disabled="!isTeamCaptain"
 				>
 					<option value="" />
 					<option
@@ -199,6 +205,7 @@
 					id="team-submit"
 					type="submit"
 					tabindex="5"
+					:disabled="!isTeamCaptain"
 				>
 					Submit
 				</button>
@@ -265,6 +272,7 @@ export default {
 		...mapState([
 			'isLoggedIn',
 			'isInTeam',
+			'isTeamCaptain',
 			'csrfToken',
 			'user',
 			'team',
@@ -286,6 +294,8 @@ export default {
 			})
 			return
 		}
+
+		console.log(this.isTeamCaptain)
 
 		Object.assign(this.userForm, this.user)
 		Object.assign(this.teamForm, this.team)

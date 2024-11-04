@@ -33,7 +33,7 @@
 								>Challenges</iso-link
 							>
 							<iso-link
-								v-if="!isStatic"
+								v-if="(isStarted || isAdmin) && !isStatic"
 								:to="isInTeam ? `/teams/${team && team.id}` : '/team'"
 								class="dropdown-menu-item"
 							>
@@ -74,6 +74,7 @@
 						<iso-link to="/scoreboard">Scoreboard</iso-link>
 					</div>
 					<iso-link
+						v-if="isStarted || isAdmin"
 						:to="isInTeam ? `/teams/${team && team.id}` : '/team'"
 						class="menu-item" 
 						>Team</iso-link
@@ -81,14 +82,17 @@
 					<div class="menu-item" v-if="isStarted || isAdmin">
 						<iso-link to="/challenges">Challenges</iso-link>
 					</div>
+					<iso-link to="/settings" class="menu-item"
+						>Settings</iso-link
+					>
 					<div
 						v-if="!isStatic"
 						v-on-clickaway="onClickaway"
 						class="menu-item dropdown"
 					>
 						<div class="dropdown-trigger" @click="isDropping = !isDropping">
-							<div class="teamname">
-								{{ team && team.name }}
+							<div class="username">
+								{{ user && user.name }}
 							</div>
 						</div>
 						<div
@@ -96,9 +100,6 @@
 							class="dropdown-menu"
 							@click="onClickDropdown"
 						>
-							<iso-link to="/settings" class="dropdown-menu-item"
-								>Settings</iso-link
-							>
 							<a href="/logout" class="dropdown-menu-item" @click="logout"
 								>Logout</a
 							>

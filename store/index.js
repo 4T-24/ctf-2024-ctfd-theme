@@ -4,13 +4,14 @@ export const state = () => ({
 	configs: [],
 	csrfToken: undefined,
 	isLoggedIn: true,
-	isInTeam: true,
+	isInTeam: false,
+	isTeamCaptain: false,
 	isStarted: false,
 	isEnded: false,
 	isPaused: false,
 	isVerified: true,
 	isStatic: null,
-	isPushEnabled: true,
+	isPushEnabled: false,
 	isAdmin: false,
 	user: {},
 	team: {},
@@ -282,6 +283,8 @@ export const getters = {
 			['value'],
 			'',
 		),
+
+	user: ({ user }) => user,
 }
 
 export const mutations = {
@@ -293,6 +296,9 @@ export const mutations = {
 	},
 	setIsInTeam(s, payload) {
 		s.isInTeam = payload
+	},
+	setIsTeamCaptain(s, payload) {
+		s.isTeamCaptain = payload
 	},
 	setIsStarted(s, payload) {
 		s.isStarted = payload
@@ -374,16 +380,21 @@ export const actions = {
 			commit('setIsLoggedIn', false, { root: true })
 		}
 	},
-	async updateTeam({ commit }, { $axios }) {
+	async updateTeam({ commit, rootState }, { $axios }) {
 		const { data, headers } = await $axios.get('/api/v1/teams/me')
 		if (headers['content-type'] === 'application/json') {
 			if (Object.keys(data.data).length === 0) {
 				commit('setIsInTeam', false, { root: true })
 			} else {
 				commit('setTeam', data.data)
+				commit('setIsInTeam', true, { root: true })
+				const user = rootState.user.id
+				const isCaptain = data.data.captain_id === user
+				commit('setIsTeamCaptain', !isCaptain, { root: true })
 			}
 		} else {
 			commit('setIsInTeam', false, { root: true })
+			commit('setIsTeamCaptain', false, { root: true })
 		}
 	},
 	// async updateDates({ commit }, { $axios }) {

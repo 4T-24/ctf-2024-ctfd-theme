@@ -53,6 +53,9 @@ import PulseLoader from 'vue-spinner/src/PulseLoader.vue';
 const formatOrdinals = (i) => {
 	const j = i % 10;
 	const k = i % 100;
+	if (i === undefined) {
+		return 'no';
+	}
 	if (j === 1 && k !== 11) {
 		return `${i}st`;
 	}
@@ -68,27 +71,22 @@ const formatOrdinals = (i) => {
 export default {
 	components: {PulseLoader, IsoTimeago, CheckCircle},
 	async asyncData(context) {
-		const isStarted = context.store.state.isStarted; // Replace with the actual path to your store state
-		if (isStarted) {
-			const [team] = await Promise.all([
-				context.store.dispatch('teams/getTeam', {...context, id: context.route.params.id}),
-				context.store.dispatch('scoreboard/updateScoreboard', context),
-			]);
-			if (team === null) {
-				context.error({statusCode: 404, message: 'Team not found'});
-			}
-		} else {
-			const [team] = await Promise.all([
-				context.store.dispatch('teams/getTeam', {...context, id: context.route.params.id}),
-			]);
-			if (team === null) {
-				context.error({statusCode: 404, message: 'Team not found'});
-			}
+		const [team] = await Promise.all([
+			context.store.dispatch('teams/getTeam', {...context, id: context.route.params.id}),
+		]);
+		if (team === null) {
+			context.error({statusCode: 404, message: 'Team not found'});
+		}
+
+		try {
+			await context.store.dispatch('scoreboard/updateScoreboard', context);
+		} catch (error) {
+			console.error("Couldn't update scoreboard", error);
 		}
 	},
 	head() {
 		return {
-			title: `Team ${this.team && this.team.name} - TSG CTF`,
+			title: `Team ${this.team && this.team.name} - 4T$ CTF`,
 		};
 	},
 	computed: {
@@ -127,7 +125,7 @@ export default {
 			});
 			return;
 		}
-
+		console.log(this.team.solves);
 		const solvers = Array.from(new Set([...this.team.solves.map(({user}) => user.id), ...this.team.members]));
 		this.$store.dispatch('users/getUsers', {$axios: this.$axios, ids: solvers});
 	},
