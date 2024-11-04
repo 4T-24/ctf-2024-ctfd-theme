@@ -68,12 +68,21 @@ const formatOrdinals = (i) => {
 export default {
 	components: {PulseLoader, IsoTimeago, CheckCircle},
 	async asyncData(context) {
-		const [team] = await Promise.all([
-			context.store.dispatch('teams/getTeam', {...context, id: context.route.params.id}),
-			context.store.dispatch('scoreboard/updateScoreboard', context),
-		]);
-		if (team === null) {
-			context.error({statusCode: 404, message: 'Team not found'});
+		if (isStarted) {
+			const [team] = await Promise.all([
+				context.store.dispatch('teams/getTeam', {...context, id: context.route.params.id}),
+				context.store.dispatch('scoreboard/updateScoreboard', context),
+			]);
+			if (team === null) {
+				context.error({statusCode: 404, message: 'Team not found'});
+			}
+		} else {
+			const [team] = await Promise.all([
+				context.store.dispatch('teams/getTeam', {...context, id: context.route.params.id}),
+			]);
+			if (team === null) {
+				context.error({statusCode: 404, message: 'Team not found'});
+			}
 		}
 	},
 	head() {
@@ -86,9 +95,14 @@ export default {
 			return this.teams.get(parseInt(this.$route.params.id)) || {};
 		},
 		score(context) {
-			return this.$store.getters['scoreboard/getScore'](parseInt(this.$route.params.id)) || {};
+			if (isStarted) {
+				return this.$store.getters['scoreboard/getScore'](parseInt(this.$route.params.id)) || {};
+			} else {
+				return {};
+			}
 		},
 		...mapState({
+			isStarted: 'isStarted',
 			isStatic: 'isStatic',
 			isLoggedIn: 'isLoggedIn',
 			isVerified: 'isVerified',
