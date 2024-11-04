@@ -68,7 +68,8 @@ const formatOrdinals = (i) => {
 export default {
 	components: {PulseLoader, IsoTimeago, CheckCircle},
 	async asyncData(context) {
-		if (this.isStarted) {
+		const isStarted = context.store.state.isStarted; // Replace with the actual path to your store state
+		if (isStarted) {
 			const [team] = await Promise.all([
 				context.store.dispatch('teams/getTeam', {...context, id: context.route.params.id}),
 				context.store.dispatch('scoreboard/updateScoreboard', context),
