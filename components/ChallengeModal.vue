@@ -145,14 +145,6 @@
 						</button>
 					</div>
 
-					<button
-						class="turn_off_button"
-						v-if="instance.status == 'Running' || instance.status == 'Errored' || instance.status == 'Unknown' || instance.status == 'Starting'"
-						@click="stopInstance()"
-					>
-						<span>Stop Instance<PowerSettings /></span>
-					</button>
-
 					<div
 						:class="{
 							'instance-btn': !instance || instance.status == 'Stopping',
@@ -172,6 +164,19 @@
 							</span>
 						</button>
 					</div>
+				</div>
+				<div
+					style="display: flex; justify-content: center"
+					v-if="
+						instance.status == 'Running' ||
+						instance.status == 'Errored' ||
+						instance.status == 'Unknown' ||
+						instance.status == 'Starting'
+					"
+				>
+					<button class="turn_off_button" v-if="true" @click="stopInstance()">
+						<span>Stop Instance<PowerSettings /></span>
+					</button>
 				</div>
 				<div class="attachments">
 					<a
