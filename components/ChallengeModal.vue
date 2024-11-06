@@ -147,7 +147,7 @@
 
 					<button
 						class="turn_off_button"
-						v-if="instance.status == 'Running' || instance.status == 'Errored' || instance.status == 'Unknown'"
+						v-if="instance.status == 'Running' || instance.status == 'Errored' || instance.status == 'Unknown' || instance.status == 'Starting'"
 						@click="stopInstance()"
 					>
 						<span>Stop Instance<PowerSettings /></span>
