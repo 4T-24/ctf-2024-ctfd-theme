@@ -67,6 +67,11 @@
 					class="instance_container"
 				>
 					<div
+						v-if="instance.status == 'Errored' || instance.status == 'Unknown'"
+					>
+						An error occured, please contact us on the Discord !
+					</div>
+					<div
 						v-if="instance.status == 'Running'"
 						:class="{ blured: instance.status != 'Running' }"
 					>
@@ -142,7 +147,7 @@
 
 					<button
 						class="turn_off_button"
-						v-if="instance.status == 'Running'"
+						v-if="instance.status == 'Running' || instance.status == 'Errored' || instance.status == 'Unknown'"
 						@click="stopInstance()"
 					>
 						<span>Stop Instance<PowerSettings /></span>
