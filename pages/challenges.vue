@@ -14,7 +14,7 @@
 					<h3>Categories</h3>
 
 					<div
-						v-for="(category, index) in categories"
+						v-for="(category, index) in orderedCategories"
 						:key="category.name"
 						class="category"
 					>
@@ -28,6 +28,7 @@
 					</div>
 				</div>
 			</div>
+
 			<div class="challenges-tiles">
 				<div v-for="category in categories" :key="category.name">
 					<div
@@ -97,6 +98,12 @@ export default {
 		}
 	},
 	computed: {
+		orderedCategories() {
+			return this.categories
+				.filter((e) => e.name == 'fil-rouge')
+				.concat(this.categories.filter((e) => e.name != 'fil-rouge'))
+		},
+
 		...mapGetters({
 			categories: 'challenges/getCategories',
 		}),
