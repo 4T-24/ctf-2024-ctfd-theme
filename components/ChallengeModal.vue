@@ -473,7 +473,7 @@ export default {
 		connectWebsocket() {
 			this.websocket = new WebSocket(
 				this.wsData.instancer_base_url +
-					'api/v1/' +
+					'/api/v1/' +
 					this.challenge.slug +
 					'/' +
 					this.wsData.instance_id +
@@ -504,7 +504,7 @@ export default {
 				console.log('[WS] Reconnecting...')
 				// Attempt to reconnect after a delay (e.g., 5 seconds)
 				setTimeout(() => {
-					connectWebSocket()
+					that.connectWebsocket()
 				}, 5000)
 			}
 		},
