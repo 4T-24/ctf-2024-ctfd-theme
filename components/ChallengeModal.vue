@@ -115,6 +115,7 @@
 					</div>
 
 					<div
+						v-if="challenge.type == 'i_dynamic' || challenge.type == 'i_static'"
 						:class="{
 							'instance-btn':
 								!instance ||
