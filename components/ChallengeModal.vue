@@ -839,6 +839,7 @@ export default {
 
 .instance_container {
 	display: flex;
+	min-height: 50px;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
