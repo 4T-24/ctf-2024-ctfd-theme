@@ -169,10 +169,10 @@
 				<div
 					style="display: flex; justify-content: center"
 					v-if="
-						instance.status == 'Running' ||
+						(instance.status == 'Running' ||
 						instance.status == 'Errored' ||
 						instance.status == 'Unknown' ||
-						instance.status == 'Starting'
+						instance.status == 'Starting') && challenge.is_instanced
 					"
 				>
 					<button class="turn_off_button" v-if="true" @click="stopInstance()">
