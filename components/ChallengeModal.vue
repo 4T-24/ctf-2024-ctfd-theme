@@ -63,7 +63,7 @@
 				</div>
 
 				<div
-					v-if="challenge.type == 'i_dynamic' || challenge.type == 'i_static'"
+					v-if="(challenge.type == 'i_dynamic' || challenge.type == 'i_static') && challenge.is_instanced"
 					class="instance_container"
 				>
 					<div
