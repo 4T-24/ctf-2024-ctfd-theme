@@ -63,7 +63,7 @@
 				</div>
 
 				<div
-					v-if="(challenge.type == 'i_dynamic' || challenge.type == 'i_static') && challenge.is_instanced"
+					v-if="(challenge.type == 'i_dynamic' || challenge.type == 'i_static') && challenge.is_instanced && instance"
 					class="instance_container"
 				>
 					<div
@@ -172,7 +172,9 @@
 						(instance.status == 'Running' ||
 						instance.status == 'Errored' ||
 						instance.status == 'Unknown' ||
-						instance.status == 'Starting') && challenge.is_instanced
+						instance.status == 'Starting') && 
+						challenge.is_instanced &&
+						instance
 					"
 				>
 					<button class="turn_off_button" v-if="true" @click="stopInstance()">
