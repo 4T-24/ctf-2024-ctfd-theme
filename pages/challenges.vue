@@ -30,7 +30,7 @@
 			</div>
 
 			<div class="challenges-tiles">
-				<div v-for="category in categories" :key="category.name">
+				<div v-for="category in orderedCategories" :key="category.name">
 					<div
 						v-if="
 							!filteredCategories.length ||
