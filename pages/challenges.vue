@@ -178,10 +178,10 @@ export default {
 
 		toggleFilter(index) {
 			if (this.categoriesFilter[index]) {
-				this.filteredCategories.push(this.categories[index].name)
+				this.filteredCategories.push(this.orderedCategories[index].name)
 			} else {
 				this.filteredCategories = this.filteredCategories.filter(
-					(e) => e !== this.categories[index].name,
+					(e) => e !== this.orderedCategories[index].name,
 				)
 			}
 		},
