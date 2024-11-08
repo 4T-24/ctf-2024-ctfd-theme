@@ -275,7 +275,13 @@ export default {
 			boo: false,
 		}
 	},
-	mounted() { },
+	mounted() {
+		if (window.ws === undefined) {
+			window.ws = {
+				retry: true,
+			}
+		}
+	},
 	unmounted() {
 		try {
 			window.ws.retry = false
