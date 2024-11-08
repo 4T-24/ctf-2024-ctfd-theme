@@ -101,7 +101,19 @@ export default {
 		orderedCategories() {
 			return this.categories
 				.filter((e) => e.name == 'fil-rouge')
-				.concat(this.categories.filter((e) => e.name != 'fil-rouge'))
+				.concat(
+					this.categories
+						.filter((e) => e.name != 'fil-rouge')
+						.sort(function (a, b) {
+							if (a.name.toUpperCase() < b.name.toUpperCase()) {
+								return -1
+							}
+							if (a.name.toUpperCase() > b.name.toUpperCase()) {
+								return 1
+							}
+							return 0
+						}),
+				)
 		},
 
 		...mapGetters({
