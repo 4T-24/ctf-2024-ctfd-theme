@@ -185,6 +185,7 @@ export default {
 				$axios: this.$axios,
 				id,
 			})
+			this.$store.dispatch('challenges/setInstanceToNull')
 			this.isChallengeModalOpen = true
 		},
 
