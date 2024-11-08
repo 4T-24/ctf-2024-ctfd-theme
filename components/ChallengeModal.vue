@@ -433,6 +433,9 @@ export default {
 			this.boo = false
 			const form = new FormData(event.target)
 			let inputFlag = form.get('flag')
+			if (this.challenge.has_oracle) {
+				inputFlag = 'oracle'
+			}
 			const { data } = await this.$axios.post(
 				'/api/v1/challenges/attempt',
 				{
