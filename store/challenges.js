@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue, { computed } from 'vue'
 import get from 'lodash/get'
 import groupBy from 'lodash/groupBy'
 
@@ -235,6 +235,10 @@ export const actions = {
 				commit('setIsLoggedIn', false, { root: true })
 			}
 		}
+	},
+	setInstanceToNull({ commit }) {
+		console.log('null')
+		commit('setSelectedChallengeInstance', { data: null })
 	},
 	async deleteChallengeInstance({ commit }, { $axios, id }) {
 		const { data, headers, request } = await $axios.delete(
