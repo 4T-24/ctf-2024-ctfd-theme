@@ -267,6 +267,7 @@ export default {
 			}
 		}
 			
+		this.getInstance()
 		window.ws.polling = setInterval(() => {
 			this.getInstance()
 		}, 5000); 
