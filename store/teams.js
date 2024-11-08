@@ -29,6 +29,7 @@ export const actions = {
 				solves: solves.data,
 			};
 			commit('setTeam', teamData);
+			commit('setIsInTeam', true, {root: true});
 			if (rootState.isStatic) {
 				const solvers = Array.from(new Set([...solves.data.map(({user}) => user), ...team.data.members]));
 				await dispatch('users/getUsers', {$axios, ids: solvers}, {root: true});
