@@ -254,7 +254,8 @@ export default {
 				this.connectWebsocket()
 			} else {
 				try {
-					this.websocket.close()
+					window.ws.retry = false
+					window.ws.conn.close()
 				} catch (e) {
 					console.error('[WS] Error: ', e)
 				}
@@ -272,15 +273,13 @@ export default {
 			badgeUrl: null,
 			yay: false,
 			boo: false,
-			websocket: null,
-			websocketRetry: true,
 		}
 	},
-	mounted() {},
+	mounted() { },
 	unmounted() {
 		try {
-			this.websocketRetry = false
-			this.websocket.close()
+			window.ws.retry = false
+			window.ws.conn.close()
 		} catch (e) {
 			console.error('[WS] Error: ', e)
 		}
@@ -480,7 +479,14 @@ export default {
 			}, 1000)
 		},
 		connectWebsocket() {
-			this.websocket = new WebSocket(
+			// Just in case
+			try {
+				window.ws.close()
+			} catch (e) {
+				console.error('[WS] Error: ', e)
+			}
+
+			window.ws.conn = new WebSocket(
 				this.wsData.instancer_base_url +
 					'/api/v1/' +
 					this.challenge.slug +
@@ -490,12 +496,12 @@ export default {
 			)
 			let that = this
 
-			this.websocket.onopen = function (event) {
-				that.websocket.send(that.wsData.token)
+			window.ws.conn.onopen = function (event) {
+				window.ws.conn.send(that.wsData.token)
 				console.log('[WS] Connected to WebSocket')
 			}
 
-			this.websocket.onmessage = async function (event) {
+			window.ws.conn.onmessage = async function (event) {
 				let instance = JSON.parse(event.data)
 				console.log('[WS] Received data: ', instance)
 				await that.$store.commit('challenges/setSelectedChallengeInstance', {
@@ -504,15 +510,15 @@ export default {
 				console.log('[WS] Instance updated: ', that.instance)
 			}
 
-			this.websocket.onerror = function (event) {
+			window.ws.conn.onerror = function (event) {
 				console.error('[WS] Error: ', event)
 			}
 
-			this.websocket.onclose = function (event) {
+			window.ws.conn.onclose = function (event) {
 				console.warn('[WS] Connection closed: ', event)
 				console.log('[WS] Reconnecting...')
 				// Attempt to reconnect after a delay (e.g., 5 seconds)
-				if (that.websocketRetry) {
+				if (window.ws.retry) {
 					setTimeout(() => {
 						that.connectWebsocket()
 					}, 5000)
