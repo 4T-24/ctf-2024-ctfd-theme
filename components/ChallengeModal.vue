@@ -273,9 +273,18 @@ export default {
 			yay: false,
 			boo: false,
 			websocket: null,
+			websocketRetry: true,
 		}
 	},
 	mounted() {},
+	unmounted() {
+		try {
+			this.websocketRetry = false
+			this.websocket.close()
+		} catch (e) {
+			console.error('[WS] Error: ', e)
+		}
+	},
 	computed: {
 		...mapGetters({
 			wsData: 'ws/getAll',
@@ -503,9 +512,11 @@ export default {
 				console.warn('[WS] Connection closed: ', event)
 				console.log('[WS] Reconnecting...')
 				// Attempt to reconnect after a delay (e.g., 5 seconds)
-				setTimeout(() => {
-					that.connectWebsocket()
-				}, 5000)
+				if (that.websocketRetry) {
+					setTimeout(() => {
+						that.connectWebsocket()
+					}, 5000)
+				}
 			}
 		},
 	},
