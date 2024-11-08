@@ -198,7 +198,8 @@
 			<div v-else class="description-loading">
 				<pulse-loader color="white" />
 			</div>
-			<form class="flag-form" @submit="onSubmitFlag">
+
+			<form v-if="!((challenge.type == 'i_dynamic' || challenge.type == 'i_static') && challenge.has_oracle)" class="flag-form" @submit="onSubmitFlag">
 				<input
 					v-model="flagText"
 					type="text"
@@ -219,6 +220,15 @@
 					:disabled="yay || challenge.solved_by_me || solved_by_team || isEnded"
 				>
 					Send
+				</button>
+			</form>
+			<form v-else class="flag-form" @submit="onSubmitFlag">
+				<button
+					type="submit"
+					class="flag-submit"
+					:disabled="yay || challenge.solved_by_me || solved_by_team || isEnded"
+				>
+					Check if solved
 				</button>
 			</form>
 		</div>
@@ -418,12 +428,16 @@ export default {
 		getDescription() {
 			return this.challenge.description
 		},
-
 		async onSubmitFlag(event) {
 			event.preventDefault()
 			this.boo = false
 			const form = new FormData(event.target)
-			const inputFlag = form.get('flag')
+			let inputFlag = form.get('flag')
+
+			if (this.challenge.has_oracle) {
+				inputFlag = 'oracle'
+			}
+
 			const { data } = await this.$axios.post(
 				'/api/v1/challenges/attempt',
 				{
