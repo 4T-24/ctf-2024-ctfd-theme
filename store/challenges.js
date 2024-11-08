@@ -237,7 +237,6 @@ export const actions = {
 		}
 	},
 	setInstanceToNull({ commit }) {
-		console.log('null')
 		commit('setSelectedChallengeInstance', { data: null })
 	},
 	async deleteChallengeInstance({ commit }, { $axios, id }) {
