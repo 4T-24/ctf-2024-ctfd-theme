@@ -412,12 +412,9 @@ export default {
 			})
 		},
 		getDescription() {
-			const descriptions = this.challenge.description.split(/^---$/m)
-			if (descriptions.length >= 2 && this.language === 'ja') {
-				return descriptions[1]
-			}
-			return descriptions[0]
+			return this.challenge.description
 		},
+
 		async onSubmitFlag(event) {
 			event.preventDefault()
 			this.boo = false
