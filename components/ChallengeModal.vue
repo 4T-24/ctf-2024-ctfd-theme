@@ -247,21 +247,6 @@ export default {
 			default: false,
 		},
 	},
-	watch: {
-		display: function (newVal, oldVal) {
-			this.getInstance()
-			if (newVal) {
-				this.connectWebsocket()
-			} else {
-				try {
-					window.ws.retry = false
-					window.ws.conn.close()
-				} catch (e) {
-					console.error('[WS] Error: ', e)
-				}
-			}
-		},
-	},
 	emits: ['closeModal'],
 	data() {
 		return {
@@ -281,11 +266,15 @@ export default {
 				retry: true,
 			}
 		}
+			
+		window.ws.polling = setInterval(() => {
+			this.getInstance()
+		}, 5000); 
 	},
 	unmounted() {
 		try {
 			window.ws.retry = false
-			window.ws.conn.close()
+			window.ws.polling = clearInterval(window.ws.polling)
 		} catch (e) {
 			console.error('[WS] Error: ', e)
 		}
@@ -483,53 +472,6 @@ export default {
 			setTimeout(() => {
 				tooltip.innerHTML = 'Copy to clipboard'
 			}, 1000)
-		},
-		connectWebsocket() {
-			// Just in case
-			try {
-				window.ws.close()
-			} catch (e) {
-				console.error('[WS] Error: ', e)
-			}
-
-			window.ws.conn = new WebSocket(
-				this.wsData.instancer_base_url +
-					'/api/v1/' +
-					this.challenge.slug +
-					'/' +
-					this.wsData.instance_id +
-					'/events',
-			)
-			let that = this
-
-			window.ws.conn.onopen = function (event) {
-				window.ws.conn.send(that.wsData.token)
-				console.log('[WS] Connected to WebSocket')
-			}
-
-			window.ws.conn.onmessage = async function (event) {
-				let instance = JSON.parse(event.data)
-				console.log('[WS] Received data: ', instance)
-				await that.$store.commit('challenges/setSelectedChallengeInstance', {
-					data: instance,
-				})
-				console.log('[WS] Instance updated: ', that.instance)
-			}
-
-			window.ws.conn.onerror = function (event) {
-				console.error('[WS] Error: ', event)
-			}
-
-			window.ws.conn.onclose = function (event) {
-				console.warn('[WS] Connection closed: ', event)
-				console.log('[WS] Reconnecting...')
-				// Attempt to reconnect after a delay (e.g., 5 seconds)
-				if (window.ws.retry) {
-					setTimeout(() => {
-						that.connectWebsocket()
-					}, 5000)
-				}
-			}
 		},
 	},
 }
